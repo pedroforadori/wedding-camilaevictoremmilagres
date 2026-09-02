@@ -13,6 +13,7 @@ export async function connect({ onOpen } = {}) {
   const sock = makeWASocket({
     auth: state,
     logger: pino({ level: 'silent' }),
+    syncFullHistory: true,
   });
 
   sock.ev.on('creds.update', saveCreds);
