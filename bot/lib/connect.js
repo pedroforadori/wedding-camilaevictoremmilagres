@@ -38,10 +38,15 @@ export async function connect({ onOpen } = {}) {
         `Conexão encerrada (statusCode=${statusCode}).` +
           (loggedOut
             ? ' Sessão deslogada — apague bot/auth e rode de novo para linkar o QR.'
-            : ' Tentando reconectar...')
+            : ' Tentando reconectar em alguns segundos...')
       );
       if (!loggedOut) {
-        connect({ onOpen }).catch((err) => console.error('Erro ao reconectar:', err));
+        // Espera um pouco antes de reconectar: reconectar imediato demais faz o WhatsApp
+        // achar que são duas sessões concorrentes e ficar derrubando as duas em loop
+        // (statusCode 440, "connectionReplaced").
+        setTimeout(() => {
+          connect({ onOpen }).catch((err) => console.error('Erro ao reconectar:', err));
+        }, 5000);
       }
     }
   });

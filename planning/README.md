@@ -6,8 +6,11 @@ Este diretório guarda o backlog do site enquanto ele ainda não existe.
 
 1. O bot em `bot/` captura as mensagens do grupo de WhatsApp dos noivos em `data/messages.jsonl`, e os anexos (fotos, vídeos, áudios, documentos) em `data/media/` (nenhum dos dois versionado, ficam só locais). Cada mensagem com anexo referencia o arquivo em `attachment.path`.
 2. Periodicamente, as mensagens novas são revisadas e viram rascunhos de ticket em `planning/pending/*.md`.
-3. Cada rascunho é aprovado, editado ou rejeitado.
-4. Rascunhos aprovados viram issues no repositório (`gh issue create`), são adicionados ao
+3. Rascunhos que correspondem a um pedido claro e acionável são publicados direto como issue
+   (sem esperar aprovação manual — decisão do casal em 2026-09-02). Rascunhos ambíguos, que
+   dependem de uma resposta dos noivos, ou que só fazem sentido como pergunta continuam
+   esperando em `pending/` até virarem acionáveis.
+4. Issues publicadas viram issues no repositório (`gh issue create`), são adicionadas ao
    board Kanban (project #3, view "Board", agrupado por Status) e saem de `pending/`.
 5. Se o rascunho referenciar um `attachment.path` de `data/media/`, o arquivo é subido como
    anexo real da issue (não commitado no repo, já que o repositório é público) e embutido
@@ -29,4 +32,4 @@ Este diretório guarda o backlog do site enquanto ele ainda não existe.
    comportamento sem aviso — se parar de funcionar, cair de volta para descrever o anexo em
    texto e referenciar o arquivo local.
 
-Só o que foi aprovado vira issue pública — as mensagens brutas do grupo nunca são publicadas.
+As mensagens brutas do grupo nunca são publicadas — só o rascunho já reescrito como ticket.

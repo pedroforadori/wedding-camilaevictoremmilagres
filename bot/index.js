@@ -168,6 +168,16 @@ async function main() {
   });
 }
 
+// Erros internos do Baileys (ex: falha de retry em uma sessão já derrubada) às vezes
+// escapam como exceção não tratada. Como a reconexão já é feita via connection.update,
+// só logamos e deixamos o processo de captura vivo em vez de derrubar tudo.
+process.on('uncaughtException', (err) => {
+  console.error('[erro não tratado, seguindo rodando]', err);
+});
+process.on('unhandledRejection', (err) => {
+  console.error('[rejeição não tratada, seguindo rodando]', err);
+});
+
 main().catch((err) => {
   console.error('Erro fatal:', err);
   process.exit(1);

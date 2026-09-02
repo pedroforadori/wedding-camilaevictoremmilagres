@@ -2,13 +2,13 @@
 
 Repositório do site de casamento. O desenvolvimento ainda não começou — este repo está,
 por enquanto, coletando os pedidos e preferências que o casal compartilha no grupo de
-WhatsApp, para virarem um backlog de issues aprovado antes do setup do site.
+WhatsApp, para virarem um backlog de issues antes do setup do site.
 
 ## Fluxo
 
 ```
 grupo de WhatsApp → bot/ (captura em tempo real) → planning/pending/ (rascunhos)
-  → aprovação manual → issues no GitHub → vira desenvolvimento quando o site começar
+  → issues no GitHub (board Kanban) → vira desenvolvimento quando o site começar
 ```
 
 ## Bot de captura (`bot/`)
@@ -55,5 +55,5 @@ notebook dormir, mensagens enviadas nesse intervalo não são recuperadas.
 
 ## Planejamento (`planning/`)
 
-Veja [planning/README.md](planning/README.md) para o fluxo de extração e aprovação dos
+Veja [planning/README.md](planning/README.md) para o fluxo de extração e publicação dos
 tickets a partir das mensagens capturadas.
