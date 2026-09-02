@@ -15,7 +15,10 @@ grupo de WhatsApp → bot/ (captura em tempo real) → planning/pending/ (rascun
 
 Usa [Baileys](https://github.com/WhiskeySockets/Baileys) para linkar como um dispositivo
 do WhatsApp Web e escutar as mensagens de um grupo específico, gravando-as em
-`data/messages.jsonl` (não versionado).
+`data/messages.jsonl` (não versionado). Anexos (fotos, vídeos, áudios, documentos,
+figurinhas) são baixados para `data/media/` (também não versionado) e cada entrada de
+mensagem referencia o arquivo correspondente — importante para preservar referências
+visuais (decoração, convites, etc.) trocadas no grupo.
 
 ### Primeira vez
 

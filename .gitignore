@@ -1,6 +1,7 @@
 node_modules/
 bot/auth/
 data/messages.jsonl
+data/media/
 data/.cursor
 .env
 .DS_Store
