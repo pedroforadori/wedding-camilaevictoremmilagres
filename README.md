@@ -1,14 +1,36 @@
 # Site de Casamento — Camila e Victor
 
-Repositório do site de casamento. O desenvolvimento ainda não começou — este repo está,
-por enquanto, coletando os pedidos e preferências que o casal compartilha no grupo de
-WhatsApp, para virarem um backlog de issues antes do setup do site.
+Monorepo do site de casamento. Contém o site em si (`site/`) e a esteira que captura os
+pedidos e preferências do casal no grupo de WhatsApp e os transforma em backlog de
+issues (`bot/`, `data/`, `planning/`).
 
-## Fluxo
+## Estrutura
+
+```
+.
+├── site/      → site do casamento (Next.js + TypeScript + Tailwind CSS)
+├── bot/       → bot de captura do grupo de WhatsApp (Baileys)
+├── data/      → mensagens e mídia capturadas (não versionado)
+└── planning/  → backlog de rascunhos de ticket antes de virarem issues
+```
+
+Gerenciado como monorepo com [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces).
+
+## Site (`site/`)
+
+```bash
+npm install     # na raiz — instala as dependências de todos os workspaces
+npm run dev     # sobe o site em http://localhost:3000
+```
+
+Veja [site/README.md](site/README.md) para detalhes sobre o conteúdo e o que ainda está
+pendente de material dos noivos.
+
+## Fluxo do backlog
 
 ```
 grupo de WhatsApp → bot/ (captura em tempo real) → planning/pending/ (rascunhos)
-  → issues no GitHub (board Kanban) → vira desenvolvimento quando o site começar
+  → issues no GitHub (board Kanban) → desenvolvimento em site/
 ```
 
 ## Bot de captura (`bot/`)

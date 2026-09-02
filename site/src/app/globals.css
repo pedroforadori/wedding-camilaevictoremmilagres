@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  /* Paleta aproximada a partir da aquarela de praia e do monograma da issue #8
+     (litoral de São Miguel dos Milagres) — trocar por tons extraídos da arte
+     original quando o PDF estiver disponível no repositório. */
+  --color-foam: #fbf7f0;
+  --color-sand: #f0e3cd;
+  --color-sand-dark: #ddc9a3;
+  --color-ocean: #3e7c82;
+  --color-ocean-deep: #1f4e52;
+  --color-coral: #d98b76;
+  --color-ink: #2b2420;
+}
+
+@theme inline {
+  --color-foam: var(--color-foam);
+  --color-sand: var(--color-sand);
+  --color-sand-dark: var(--color-sand-dark);
+  --color-ocean: var(--color-ocean);
+  --color-ocean-deep: var(--color-ocean-deep);
+  --color-coral: var(--color-coral);
+  --color-ink: var(--color-ink);
+
+  --font-display: var(--font-display);
+  --font-script: var(--font-script);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--color-foam);
+  color: var(--color-ink);
+}

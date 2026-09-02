@@ -1,0 +1,14 @@
+{
+  "name": "wedding-camilaevictoremmilagres",
+  "private": true,
+  "workspaces": [
+    "site",
+    "bot"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w site",
+    "build": "npm run build -w site",
+    "start": "npm run start -w site",
+    "lint": "npm run lint -w site"
+  }
+}
