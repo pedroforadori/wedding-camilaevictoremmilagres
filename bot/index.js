@@ -1,8 +1,10 @@
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const { connect } = require('./lib/connect');
+import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { connect } from './lib/connect.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const GROUP_JID = process.env.GROUP_JID;
 const MESSAGES_FILE = path.join(__dirname, '..', 'data', 'messages.jsonl');
 

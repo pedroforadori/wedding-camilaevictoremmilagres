@@ -1,5 +1,5 @@
-require('dotenv').config();
-const { connect } = require('./lib/connect');
+import 'dotenv/config';
+import { connect } from './lib/connect.js';
 
 async function main() {
   await connect({

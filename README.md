@@ -19,8 +19,14 @@ do WhatsApp Web e escutar as mensagens de um grupo específico, gravando-as em
 
 ### Primeira vez
 
+O Node do sistema (v20.9.0) é antigo demais para o Baileys. Foi instalado o
+[nvm](https://github.com/nvm-sh/nvm) e uma versão mais nova do Node só para este
+projeto — `bot/.nvmrc` já fixa a versão certa. **Abra um terminal novo** (para o nvm
+carregar) antes de rodar os comandos abaixo:
+
 ```bash
 cd bot
+nvm use
 npm install
 npm start
 ```

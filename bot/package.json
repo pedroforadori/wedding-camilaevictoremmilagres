@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Captura mensagens de um grupo de WhatsApp para alimentar o backlog do site de casamento",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

@@ -1,11 +1,13 @@
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
-const qrcode = require('qrcode-terminal');
-const pino = require('pino');
-const path = require('path');
+import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys';
+import qrcode from 'qrcode-terminal';
+import pino from 'pino';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const AUTH_DIR = path.join(__dirname, '..', 'auth');
 
-async function connect({ onOpen } = {}) {
+export async function connect({ onOpen } = {}) {
   const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
 
   const sock = makeWASocket({
@@ -46,4 +48,4 @@ async function connect({ onOpen } = {}) {
   return sock;
 }
 
-module.exports = { connect, AUTH_DIR };
+export { AUTH_DIR };
