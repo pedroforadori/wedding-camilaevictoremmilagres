@@ -1,0 +1,79 @@
+name: Auto-executar issues em In Progress
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  check-and-run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Verificar itens "In Progress" ainda não processados
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -e
+          ITEMS=$(gh project item-list 3 --owner pedroforadori --format json --limit 100)
+          NUMS=$(echo "$ITEMS" | jq -r '
+            [.items[]
+              | select(.status == "In Progress")
+              | select((.labels // []) | index("automation:started") | not)
+              | .content.number]
+            | join(" ")
+          ')
+          if [ -z "$NUMS" ]; then
+            echo "has_work=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_work=true" >> "$GITHUB_OUTPUT"
+            echo "issue_numbers=$NUMS" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: anthropics/claude-code-action@v1
+        if: steps.check.outputs.has_work == 'true'
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Processe as issues do repositório ${{ github.repository }} que estão com Status
+            "In Progress" no board Kanban (project #3 de pedroforadori), especificamente os
+            números: ${{ steps.check.outputs.issue_numbers }}.
+
+            Para cada uma:
+            1. Confirme que a issue ainda não tem a label 'automation:started'; se não tiver,
+               crie a label (`gh label create automation:started --color fbca04 --force`) e
+               aplique nela (`gh issue edit <numero> --add-label automation:started`) antes de
+               começar a trabalhar, para não ser reprocessada num próximo disparo.
+            2. Leia título, corpo e comentários completos
+               (`gh issue view <numero> --json title,body,comments,labels`).
+            3. Se a issue descreve um pedido concreto e acionável neste repositório (código,
+               conteúdo, configuração, documentação, texto, estrutura de arquivos etc.):
+               implemente a mudança numa branch nova (`automation/issue-<numero>-slug-curto`),
+               commit, push, e abra um PR (`gh pr create`) referenciando `Closes #<numero>` e
+               explicando o que foi feito e por quê. NÃO dê merge — o PR fica para revisão
+               humana.
+            4. Se NÃO for acionável agora (depende de decisão do casal ainda em aberto, é
+               pergunta, falta informação, ou não há nada implementável no estado atual do
+               projeto): NÃO abra PR — comente na issue (`gh issue comment`) explicando
+               claramente o que falta.
+            5. Repita para todos os números listados acima. Não mexa no campo Status de
+               nenhum item do board — isso é sempre manual, controlado pelo casal.
+
+            Seja objetivo nos PRs e comentários, em português, no mesmo tom direto usado no
+            restante do repositório (ver README.md e planning/README.md para contexto do
+            fluxo).
+          claude_args: |
+            --model claude-sonnet-5
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
