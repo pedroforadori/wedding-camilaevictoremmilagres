@@ -26,11 +26,31 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           set -e
-          ITEMS=$(gh project item-list 3 --owner pedroforadori --format json --limit 100)
+          ITEMS=$(gh api graphql -f query='
+            query {
+              user(login: "pedroforadori") {
+                projectV2(number: 3) {
+                  items(first: 100) {
+                    nodes {
+                      content {
+                        ... on Issue {
+                          number
+                          labels(first: 20) { nodes { name } }
+                        }
+                      }
+                      fieldValueByName(name: "Status") {
+                        ... on ProjectV2ItemFieldSingleSelectValue { name }
+                      }
+                    }
+                  }
+                }
+              }
+            }')
           NUMS=$(echo "$ITEMS" | jq -r '
-            [.items[]
-              | select(.status == "In Progress")
-              | select((.labels // []) | index("automation:started") | not)
+            [.data.user.projectV2.items.nodes[]
+              | select(.fieldValueByName.name == "In Progress")
+              | select(.content.number != null)
+              | select((.content.labels.nodes // []) | map(.name) | index("automation:started") | not)
               | .content.number]
             | join(" ")
           ')
