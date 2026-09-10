@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { Monogram } from "./Monogram";
-import { WatercolorWaves } from "./WatercolorWaves";
 import { couple, wedding } from "@/content/wedding";
 
 export function Hero() {
@@ -8,26 +8,34 @@ export function Hero() {
       id="topo"
       className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 pb-24 pt-16 text-center"
     >
-      <WatercolorWaves className="pointer-events-none absolute inset-x-0 bottom-0 h-64 w-full" />
+      <Image
+        src="/images/hero-casal.jpg"
+        alt="Camila e Victor abraçados de costas, em frente a coqueirais e à capela de São Miguel dos Milagres"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/35 to-ink/60" />
 
       <div className="relative z-10 flex flex-col items-center">
-        <Monogram className="mb-8 h-20 w-20" />
+        <Monogram className="mb-8 h-20 w-20 border-foam/50" tone="text-foam" />
 
-        <p className="font-body text-sm uppercase tracking-[0.3em] text-ocean-deep">
+        <p className="font-body text-sm uppercase tracking-[0.3em] text-foam/90">
           Nós vamos nos casar
         </p>
 
-        <h1 className="mt-4 font-display text-5xl font-medium italic text-ink sm:text-7xl">
+        <h1 className="mt-4 font-display text-5xl font-medium italic text-foam sm:text-7xl">
           {couple.names}
         </h1>
 
-        <p className="mt-6 max-w-md text-balance font-body text-base text-ink/80">
+        <p className="mt-6 max-w-md text-balance font-body text-base text-foam/90">
           Três dias de celebração à beira-mar em {wedding.city}, {wedding.state}.
         </p>
 
         <a
           href="#convite"
-          className="mt-10 rounded-full border border-ocean-deep/40 px-6 py-2 text-sm tracking-wide text-ocean-deep transition-colors hover:bg-ocean-deep hover:text-foam"
+          className="mt-10 rounded-full border border-foam/60 px-6 py-2 text-sm tracking-wide text-foam transition-colors hover:bg-foam hover:text-ocean-deep"
         >
           Ler o convite
         </a>
