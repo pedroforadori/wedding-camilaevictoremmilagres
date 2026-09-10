@@ -23,7 +23,7 @@ export default function ProgramacaoPage() {
           ))}
         </div>
 
-        <PendingNote note={dressCodeArt.note} issueUrl={dressCodeArt.issueUrl} />
+        <PendingNote note={dressCodeArt.note} />
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Festa | Camila & Victor" };
 export default function FestaPage() {
   return (
     <SimplePageLayout title={festa.title} intro={festa.intro}>
-      <PendingNote note={festa.note} issueUrl={festa.issueUrl} />
+      <PendingNote note={festa.note} />
     </SimplePageLayout>
   );
 }

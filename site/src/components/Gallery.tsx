@@ -21,17 +21,6 @@ export function Gallery() {
             />
           ))}
         </div>
-
-        <p className="mt-8 text-center text-xs text-ink/50">
-          <a
-            href={gallery.issueUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="underline decoration-ocean/40 underline-offset-4 hover:text-ocean-deep"
-          >
-            acompanhar
-          </a>
-        </p>
       </div>
     </section>
   );

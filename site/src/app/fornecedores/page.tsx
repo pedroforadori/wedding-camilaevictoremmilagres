@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Fornecedores | Camila & Victor" };
 export default function FornecedoresPage() {
   return (
     <SimplePageLayout title={fornecedores.title} intro={fornecedores.intro}>
-      <PendingNote note={fornecedores.note} issueUrl={fornecedores.issueUrl} />
+      <PendingNote note={fornecedores.note} />
     </SimplePageLayout>
   );
 }

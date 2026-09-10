@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Cerimônia | Camila & Victor" };
 export default function CerimoniaPage() {
   return (
     <SimplePageLayout title={cerimonia.title} intro={cerimonia.intro}>
-      <PendingNote note={cerimonia.note} issueUrl={cerimonia.issueUrl} />
+      <PendingNote note={cerimonia.note} />
     </SimplePageLayout>
   );
 }

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PresentesPage() {
   return (
     <SimplePageLayout title={presentes.title} intro={presentes.intro}>
-      <PendingNote note={presentes.note} issueUrl={presentes.issueUrl} />
+      <PendingNote note={presentes.note} />
     </SimplePageLayout>
   );
 }
