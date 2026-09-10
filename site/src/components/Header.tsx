@@ -82,7 +82,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 flex flex-col bg-foam sm:hidden">
       <div className="flex items-center justify-between border-b border-sand-dark/60 px-6 py-3">
         <Link href="/" onClick={onClose} className="flex items-center gap-3">
-          <Monogram className="h-10 w-10" />
+          <Monogram className="h-10 w-auto" />
           <span className="font-display text-lg tracking-wide text-ocean-deep">
             Camila &amp; Victor
           </span>
@@ -145,7 +145,7 @@ export function Header() {
       <header className="sticky top-0 z-40 border-b border-sand-dark/60 bg-foam/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-3">
-            <Monogram className="h-10 w-10" />
+            <Monogram className="h-10 w-auto" />
             <span className="font-display text-lg tracking-wide text-ocean-deep">
               Camila &amp; Victor
             </span>

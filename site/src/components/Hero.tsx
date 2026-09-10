@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Monogram } from "./Monogram";
 import { couple, wedding } from "@/content/wedding";
 
 export function Hero() {
@@ -19,8 +18,6 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/35 to-ink/60" />
 
       <div className="relative z-10 flex flex-col items-center">
-        <Monogram className="mb-8 h-20 w-20 border-foam/50" tone="text-foam" />
-
         <p className="font-body text-sm uppercase tracking-[0.3em] text-foam/90">
           Nós vamos nos casar
         </p>

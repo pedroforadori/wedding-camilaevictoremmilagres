@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t border-sand-dark/60 bg-ocean-deep px-6 py-12 text-foam">
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 text-center">
-        <Monogram className="h-14 w-14 border-foam/40" tone="text-foam" />
+        <Monogram className="h-14 w-auto" />
         <p className="font-display text-2xl italic">{couple.names}</p>
         <p className="text-sm text-foam/80">
           {wedding.city}, {wedding.state}
