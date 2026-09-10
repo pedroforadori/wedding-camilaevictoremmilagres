@@ -3,6 +3,8 @@ bot/auth/
 data/messages.jsonl
 data/media/
 data/.cursor
+data/rsvps.jsonl
+data/guestbook.jsonl
 .env
 .DS_Store
 .claude/settings.local.json

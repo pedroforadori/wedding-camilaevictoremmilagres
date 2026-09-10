@@ -1,7 +1,8 @@
-// Conteúdo do site — vem do backlog capturado no grupo de WhatsApp dos noivos
-// (ver ../../../planning/ e as issues do repositório). Seções marcadas como
-// "em-breve" aguardam material dos noivos (arte, horários, fotos) — ver a
-// referência de issue de cada uma.
+// Conteúdo do site — combina o backlog capturado no grupo de WhatsApp dos noivos
+// (ver ../../../planning/ e as issues do repositório) com o conteúdo já publicado
+// pelo casal no site de referência (sites.icasei.com.br/camilaevictor/home), que
+// definiu a arquitetura de páginas replicada aqui. Itens marcados como "em-breve"
+// ainda não têm material (fotos, textos, listas) — ver a issue referenciada.
 
 export const couple = {
   names: "Camila & Victor",
@@ -14,6 +15,8 @@ export const wedding = {
   domain: "www.camilaevictoremmilagres.com.br",
   instagramHandle: "@camilaevictoremmilagres",
   instagramUrl: "https://www.instagram.com/camilaevictoremmilagres",
+  // Data/hora do casamento (dia 3, ver `schedule`) — alvo da contagem regressiva.
+  ceremonyDateTimeISO: "2027-10-11T15:00:00-03:00",
 };
 
 // Issue #3 — texto de abertura enviado pronto pelos noivos para a home page.
@@ -31,41 +34,59 @@ export const invitation = {
 
 export type ScheduleDay = {
   day: number;
-  label: string;
-  status: "confirmado" | "em-breve";
-  note: string;
+  date: string;
+  title: string;
+  time: string;
+  venue: string;
+  location: string;
+  dressCode: string;
+  dressNotes: string[];
 };
 
-// Issue #6 — confirmados os 3 dias de celebração, horários/atividades ainda não vieram.
+// Programação real, publicada pelo casal em 2027 — substitui o placeholder
+// "em breve" das issues #4 e #6, que continuavam pendentes apenas de horários.
 export const schedule: ScheduleDay[] = [
   {
     day: 1,
-    label: "Dia 1",
-    status: "em-breve",
-    note: "Programação em breve — aguardando horários e atividades.",
+    date: "09.10.2027",
+    title: "Welcome Drinks",
+    time: "18h00",
+    venue: "Orla Villas",
+    location: "Praia do Marceneiro - AL",
+    dressCode: "Roupa branca",
+    dressNotes: ["Sugerimos sapatos confortáveis"],
   },
   {
     day: 2,
-    label: "Dia 2",
-    status: "em-breve",
-    note: "Programação em breve — aguardando horários e atividades.",
+    date: "10.10.2027",
+    title: "Jagaday",
+    time: "11h30",
+    venue: "Ponto de encontro: Orla Villas",
+    location: "Praia do Marceneiro - AL",
+    dressCode: "Piscina / praia",
+    dressNotes: ["Se possível, evitar a cor branco"],
   },
   {
     day: 3,
-    label: "Dia 3",
-    status: "em-breve",
-    note: "Programação em breve — aguardando horários e atividades.",
+    date: "11.10.2027",
+    title: "Casamento",
+    time: "15h00",
+    venue: "Casa do Marceneiro Bisutti",
+    location: "São Miguel dos Milagres - AL",
+    dressCode: "Social completo",
+    dressNotes: [
+      "Mulheres: recomendamos saltos grossos e confortáveis. Pedimos que evitem vestidos brancos ou muito claros, para preservar o destaque da noiva nesse dia único.",
+      "Homens: terno completo.",
+    ],
   },
 ];
 
-export const scheduleIssueUrl =
-  "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/6";
-
-// Issue #4 — guia de vestimenta por evento, ilustrado com aquarelas que a Camila
-// ainda está produzindo.
-export const dressCode = {
+// Issue #4 — aquarelas com sugestões de roupa por evento, que a Camila ainda está
+// produzindo. O texto do traje de cada dia já está confirmado (ver `schedule`);
+// só a ilustração está pendente.
+export const dressCodeArt = {
   status: "em-breve" as const,
-  note: "A Camila está preparando aquarelas com sugestões de roupa para cada um dos três dias — assim que chegarem, aparecem aqui ao lado da programação de cada evento.",
+  note: "A Camila está preparando aquarelas com sugestões de roupa para cada um dos três dias — assim que chegarem, entram aqui ao lado do traje de cada evento.",
   issueUrl:
     "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/4",
 };
@@ -83,3 +104,122 @@ export const gallery = {
 // estão neste repositório — a paleta e o estilo abaixo são uma aproximação.
 export const visualIdentityIssueUrl =
   "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/8";
+
+export type SimplePage = {
+  title: string;
+  intro: string;
+  note: string;
+  issueUrl: string;
+};
+
+const placesIssueUrl =
+  "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/10";
+
+// Páginas de local/apoio replicadas da arquitetura do site de referência.
+// O casal ainda não enviou fotos/mapas/textos finais para nenhuma — o texto de
+// abertura é um placeholder no tom do convite, para não deixar a página vazia.
+export const cerimonia: SimplePage = {
+  title: "Cerimônia",
+  intro:
+    "Não percam nossa linda e emocionante cerimônia. Contamos com vocês para tornar esse dia ainda mais especial!",
+  note: "Fotos e detalhes do local entram aqui assim que os noivos enviarem.",
+  issueUrl: placesIssueUrl,
+};
+
+export const festa: SimplePage = {
+  title: "Festa",
+  intro:
+    "Com muita alegria no coração, convidamos vocês para compartilharem conosco este dia tão especial. Mal podemos esperar para celebrar o amor com todos vocês e criar memórias incríveis juntos!",
+  note: "Fotos e detalhes do local entram aqui assim que os noivos enviarem.",
+  issueUrl: placesIssueUrl,
+};
+
+export const chaBar: SimplePage = {
+  title: "Chá Bar",
+  intro:
+    "As comemorações já começaram e nada melhor do que compartilhar risadas e bons momentos com quem amamos. Venham brindar, celebrar, se divertir muito e fazer desse dia algo ainda mais especial!",
+  note: "Fotos e detalhes do local entram aqui assim que os noivos enviarem.",
+  issueUrl: placesIssueUrl,
+};
+
+export const dicas: SimplePage = {
+  title: "Dicas",
+  intro:
+    "Separamos algumas opções para ajudar vocês, nossos queridos convidados, a se prepararem para o grande dia.",
+  note: "Dicas de hospedagem, transporte e clima entram aqui assim que os noivos enviarem.",
+  issueUrl:
+    "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/11",
+};
+
+export const padrinhos = {
+  title: "Padrinhos",
+  intro: "Nossa singela homenagem aos padrinhos de casamento.",
+  status: "em-breve" as const,
+  note: "Lista e fotos dos padrinhos ainda não foram enviadas pelos noivos.",
+  issueUrl:
+    "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/12",
+};
+
+export const presentes = {
+  title: "Lista de casamento virtual",
+  intro: "Aqui vocês poderão encontrar nossa lista de presentes. Obrigado pelos mimos!",
+  status: "em-breve" as const,
+  note: "A lista de presentes ainda não foi configurada pelos noivos.",
+  issueUrl:
+    "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/13",
+};
+
+export const fornecedores = {
+  title: "Fornecedores",
+  intro:
+    "Aqueles que nos deram uma forcinha para que esse sonho se tornasse realidade, fazemos questão de lembrar e indicar!",
+  status: "em-breve" as const,
+  note: "A lista de fornecedores ainda não foi enviada pelos noivos.",
+  issueUrl:
+    "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/14",
+};
+
+export const rsvp = {
+  title: "Confirmação de presença",
+  intro: "Faça parte da nossa história de amor, confirme sua presença.",
+  eventLabel: "Casamento",
+};
+
+export const guestbook = {
+  title: "Deixe sua mensagem de carinho para nós",
+  intro:
+    "Palavras são carinhos doados. Obrigado por nos dar o seu carinho. Iremos lembrar para sempre deste momento tão esperado.",
+};
+
+export type NavLink = { label: string; href: string };
+export type NavGroup = { label: string; links: NavLink[] };
+
+// Estrutura de navegação replicada do menu do site de referência (dropdowns
+// "Páginas" / "Presentes" / "Confirmar Presença"), com a Galeria adicionada em
+// "Páginas" a pedido explícito dos noivos (issue #5) — o site de referência
+// ainda não tem uma página de galeria própria.
+export const navigation: NavGroup[] = [
+  {
+    label: "Páginas",
+    links: [
+      { label: "Página Inicial", href: "/" },
+      { label: "Programação", href: "/programacao" },
+      { label: "Cerimônia", href: "/cerimonia" },
+      { label: "Festa", href: "/festa" },
+      { label: "Chá Bar", href: "/cha-bar" },
+      { label: "Dicas", href: "/dicas" },
+      { label: "Padrinhos", href: "/padrinhos" },
+      { label: "Galeria", href: "/galeria" },
+      { label: "Mensagens", href: "/mensagens" },
+      { label: "Fornecedores", href: "/fornecedores" },
+    ],
+  },
+  {
+    label: "Presentes",
+    links: [{ label: "Lista de casamento virtual", href: "/presentes" }],
+  },
+  {
+    label: "Confirmar Presença",
+    links: [{ label: "Casamento", href: "/confirmar-presenca" }],
+  },
+];
