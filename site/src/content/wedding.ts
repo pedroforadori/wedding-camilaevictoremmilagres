@@ -81,12 +81,14 @@ export const schedule: ScheduleDay[] = [
   },
 ];
 
-// Issue #4 — aquarelas com sugestões de roupa por evento, que a Camila ainda está
-// produzindo. O texto do traje de cada dia já está confirmado (ver `schedule`);
-// só a ilustração está pendente.
+// Issue #4 — aquarelas com sugestões de roupa por evento. O texto do traje de
+// cada dia já está confirmado (ver `schedule`). As imagens em
+// `public/images/traje-dia{1,2,3}.jpg` são exemplos gerados por IA (mesmo
+// estilo da aquarela de referência da Camila) para ela aprovar a direção —
+// ainda não é a arte final.
 export const dressCodeArt = {
   status: "em-breve" as const,
-  note: "A Camila está preparando aquarelas com sugestões de roupa para cada um dos três dias — assim que chegarem, entram aqui ao lado do traje de cada evento.",
+  note: "Os trajes abaixo são exemplos gerados por IA, no estilo da aquarela que a Camila enviou — assim que ela aprovar ou enviar a arte definitiva, substituem essas ilustrações.",
   issueUrl:
     "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/4",
 };
@@ -100,8 +102,8 @@ export const gallery = {
 };
 
 // Issue #8 — monograma e aquarela de praia enviados como referência de identidade
-// visual (litoral de São Miguel dos Milagres). Arquivos originais em PDF ainda não
-// estão neste repositório — a paleta e o estilo abaixo são uma aproximação.
+// visual (litoral de São Miguel dos Milagres). A aquarela já está em
+// `public/images/aquarela-praia.jpg`; o monograma ainda é um placeholder.
 export const visualIdentityIssueUrl =
   "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/8";
 

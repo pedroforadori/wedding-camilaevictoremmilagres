@@ -1,4 +1,5 @@
 import type { ScheduleDay } from "@/content/wedding";
+import { DressCodeIllustration } from "@/components/DressCodeIllustration";
 
 export function ScheduleDayCard({ day }: { day: ScheduleDay }) {
   return (
@@ -34,9 +35,7 @@ export function ScheduleDayCard({ day }: { day: ScheduleDay }) {
         </div>
       </dl>
 
-      <div className="mt-6 flex h-20 items-center justify-center rounded-xl border border-dashed border-sand-dark bg-sand/30 text-xs uppercase tracking-wide text-ink/50">
-        Ilustração da aquarela em breve
-      </div>
+      <DressCodeIllustration day={day.day as 1 | 2 | 3} />
     </div>
   );
 }

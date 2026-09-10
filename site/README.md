@@ -31,6 +31,7 @@ seção pendente está marcada com `status: "em-breve"` e a referência da issue
 correspondente. Quando o material chegar, atualize esse arquivo.
 
 A identidade visual (paleta de cores, tipografia) foi aproximada a partir da descrição
-do monograma "CV" e da aquarela de praia enviados pela Camila (issue #8) — os arquivos
-originais (PDF) ainda não estão neste repositório. Quando estiverem disponíveis, troque
-os placeholders em `src/components/` pelas artes reais.
+do monograma "CV" e da aquarela de praia enviados pela Camila (issue #8). A aquarela já
+está em `public/images/aquarela-praia.jpg` e é usada como referência de estilo na página
+de Programação; o monograma ainda é um placeholder. As aquarelas com sugestão de roupa
+por evento (issue #4) continuam pendentes.
