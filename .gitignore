@@ -8,3 +8,4 @@ data/guestbook.jsonl
 .env
 .DS_Store
 .claude/settings.local.json
+.vercel

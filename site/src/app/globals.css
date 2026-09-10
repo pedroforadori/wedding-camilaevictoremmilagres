@@ -11,6 +11,7 @@
   --color-ocean-deep: #1f4e52;
   --color-coral: #d98b76;
   --color-ink: #2b2420;
+  --color-taupe: #8a7a5c;
 }
 
 @theme inline {
@@ -21,6 +22,7 @@
   --color-ocean-deep: var(--color-ocean-deep);
   --color-coral: var(--color-coral);
   --color-ink: var(--color-ink);
+  --color-taupe: var(--color-taupe);
 
   --font-display: var(--font-display);
   --font-script: var(--font-script);
