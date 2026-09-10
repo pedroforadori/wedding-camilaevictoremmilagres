@@ -31,18 +31,19 @@ export function Countdown() {
 
   return (
     <div>
-      <p className="text-center font-body text-xs uppercase tracking-[0.3em] text-ocean-deep">
+      <p className="text-center font-display text-2xl uppercase tracking-[0.15em] text-ocean-deep sm:text-3xl">
         Contagem regressiva para o grande dia
       </p>
-      <div className="mt-6 grid grid-cols-4 gap-3 sm:gap-6">
+      <div className="mx-auto mt-8 grid max-w-xl grid-cols-4 gap-3 sm:gap-6">
         {units.map((unit) => (
           <div key={unit.key} className="flex flex-col items-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-sand-dark/70 font-display text-2xl text-ink sm:h-20 sm:w-20 sm:text-3xl">
-              {timeLeft
-                ? String(timeLeft[unit.key]).padStart(2, "0")
-                : "--"}
+            <div className="relative flex aspect-[6/5] w-full items-center justify-center overflow-hidden rounded-md bg-ocean-deep">
+              <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-foam/40" />
+              <span className="relative font-display text-2xl text-foam sm:text-4xl">
+                {timeLeft ? timeLeft[unit.key] : "-"}
+              </span>
             </div>
-            <span className="mt-2 text-xs uppercase tracking-wide text-ink/60">
+            <span className="mt-3 font-display text-sm text-ink/70 sm:text-lg">
               {unit.label}
             </span>
           </div>
