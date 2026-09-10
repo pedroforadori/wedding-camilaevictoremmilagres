@@ -50,20 +50,26 @@ function NavDropdown({ label, links }: (typeof navigation)[number]) {
         </svg>
       </button>
       {open && (
-        <ul className="absolute left-1/2 top-full z-20 mt-2 w-56 -translate-x-1/2 rounded-xl border border-sand-dark/60 bg-foam py-2 shadow-lg">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={`block px-4 py-2 text-sm tracking-wide transition-colors hover:bg-sand/50 hover:text-ocean-deep ${
-                  pathname === link.href ? "text-ocean-deep" : "text-ink/80"
-                }`}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        // Wrapper começa colado no botão (top-full, sem margin) e usa padding
+        // em vez de margin pra abrir espaço visual — assim a "zona morta" faz
+        // parte da área de hover do dropdown, e o mouse não sai do elemento
+        // ao descer do botão até a lista (o que fechava o menu antes de chegar).
+        <div className="absolute left-1/2 top-full z-20 w-56 -translate-x-1/2 pt-2">
+          <ul className="rounded-xl border border-sand-dark/60 bg-foam py-2 shadow-lg">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`block px-4 py-2 text-sm tracking-wide transition-colors hover:bg-sand/50 hover:text-ocean-deep ${
+                    pathname === link.href ? "text-ocean-deep" : "text-ink/80"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
