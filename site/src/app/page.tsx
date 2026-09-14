@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <Hero />
       <Invitation />
-      <section className="px-6 pb-16">
+      <section className="px-6 py-16">
         <CountdownInline />
       </section>
       <Schedule />
