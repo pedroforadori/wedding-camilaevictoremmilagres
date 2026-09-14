@@ -69,20 +69,25 @@ export function CountdownInline() {
   const timeLeft = useCountdown();
 
   return (
-    <div
-      className="mx-auto flex max-w-xs items-center justify-between rounded-2xl border border-sand-dark/60 bg-foam/90 px-4 py-3 shadow-sm backdrop-blur sm:hidden"
-      aria-label="Contagem regressiva para o casamento"
-    >
-      {units.map((unit) => (
-        <div key={unit.key} className="flex flex-col items-center px-1">
-          <span className="font-display text-xl leading-none text-ocean-deep">
-            {timeLeft ? timeLeft[unit.key] : "-"}
-          </span>
-          <span className="mt-1 text-[10px] uppercase tracking-wide text-ink/50">
-            {unit.label}
-          </span>
-        </div>
-      ))}
+    <div className="sm:hidden">
+      <p className="mb-2 text-center font-display text-sm uppercase tracking-[0.2em] text-taupe">
+        Faltam
+      </p>
+      <div
+        className="mx-auto flex max-w-xs items-center justify-between rounded-2xl border border-sand-dark/60 bg-foam/90 px-4 py-3 shadow-sm backdrop-blur"
+        aria-label="Contagem regressiva para o casamento"
+      >
+        {units.map((unit) => (
+          <div key={unit.key} className="flex flex-col items-center px-1">
+            <span className="font-display text-xl leading-none text-ocean-deep">
+              {timeLeft ? timeLeft[unit.key] : "-"}
+            </span>
+            <span className="mt-1 text-[10px] uppercase tracking-wide text-ink/50">
+              {unit.label}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
