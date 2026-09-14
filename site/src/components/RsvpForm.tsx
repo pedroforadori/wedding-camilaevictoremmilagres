@@ -1,43 +1,73 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { rsvp } from "@/content/wedding";
 
 const inputClass =
   "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-ocean";
 
 export function RsvpForm() {
-  const [attending, setAttending] = useState<"sim" | "nao">("sim");
-  const [guests, setGuests] = useState(0);
+  const [guestNames, setGuestNames] = useState<string[]>([""]);
+  const [phone, setPhone] = useState("");
+  const [events, setEvents] = useState<string[]>([]);
+  const [declined, setDeclined] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   );
   const [errorMessage, setErrorMessage] = useState("");
+
+  function updateGuestName(index: number, value: string) {
+    setGuestNames((names) => names.map((name, i) => (i === index ? value : name)));
+  }
+
+  function addGuest() {
+    setGuestNames((names) => (names.length < 10 ? [...names, ""] : names));
+  }
+
+  function removeGuest(index: number) {
+    setGuestNames((names) => names.filter((_, i) => i !== index));
+  }
+
+  function toggleEvent(option: string) {
+    setDeclined(false);
+    setEvents((current) =>
+      current.includes(option)
+        ? current.filter((event) => event !== option)
+        : [...current, option],
+    );
+  }
+
+  function toggleDecline() {
+    setDeclined((current) => !current);
+    setEvents([]);
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("loading");
     setErrorMessage("");
 
-    const form = event.currentTarget;
-    const data = new FormData(form);
+    const guests = guestNames
+      .map((name) => name.trim())
+      .filter(Boolean)
+      .map((fullName, index) => ({ fullName, isPlusOne: index !== 0 }));
 
     const res = await fetch("/api/rsvp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: data.get("name"),
-        phone: data.get("phone"),
-        email: data.get("email"),
-        attending,
         guests,
+        phone,
+        events: declined ? [rsvp.declineOption] : events,
       }),
     });
 
     if (res.ok) {
       setStatus("success");
-      form.reset();
-      setAttending("sim");
-      setGuests(0);
+      setGuestNames([""]);
+      setPhone("");
+      setEvents([]);
+      setDeclined(false);
     } else {
       const body = await res.json().catch(() => null);
       setErrorMessage(body?.error ?? "Não foi possível enviar. Tente novamente.");
@@ -59,79 +89,80 @@ export function RsvpForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-10 space-y-5 text-left">
-      <div>
-        <label htmlFor="name" className="text-sm text-ink/70">
-          Nome completo *
-        </label>
-        <input id="name" name="name" type="text" required className={inputClass} />
-      </div>
-
-      <div>
-        <span className="text-sm text-ink/70">Você irá ao evento?</span>
-        <div className="mt-2 flex gap-6">
-          <label className="flex items-center gap-2 text-sm text-ink/80">
-            <input
-              type="radio"
-              name="attending"
-              checked={attending === "sim"}
-              onChange={() => setAttending("sim")}
-            />
-            Sim
-          </label>
-          <label className="flex items-center gap-2 text-sm text-ink/80">
-            <input
-              type="radio"
-              name="attending"
-              checked={attending === "nao"}
-              onChange={() => setAttending("nao")}
-            />
-            Não
-          </label>
-        </div>
+    <form onSubmit={handleSubmit} className="mt-10 space-y-6 text-left">
+      <div className="space-y-3">
+        {guestNames.map((name, index) => (
+          <div key={index}>
+            <label htmlFor={`guest-${index}`} className="text-sm text-ink/70">
+              {index === 0 ? "Nome completo *" : "Nome acompanhante"}
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                id={`guest-${index}`}
+                type="text"
+                required={index === 0}
+                value={name}
+                onChange={(e) => updateGuestName(index, e.target.value)}
+                className={inputClass}
+              />
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => removeGuest(index)}
+                  aria-label="Remover acompanhante"
+                  className="mt-1 h-9 w-9 shrink-0 rounded-full border border-sand-dark/60 text-ocean-deep"
+                >
+                  −
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addGuest}
+          className="text-sm text-ocean-deep underline decoration-ocean/40 underline-offset-4 hover:text-ocean"
+        >
+          + Adicionar acompanhante
+        </button>
       </div>
 
       <div>
         <label htmlFor="phone" className="text-sm text-ink/70">
           Telefone *
         </label>
-        <input id="phone" name="phone" type="tel" required className={inputClass} />
+        <input
+          id="phone"
+          type="tel"
+          required
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className={inputClass}
+        />
       </div>
 
       <div>
-        <label htmlFor="email" className="text-sm text-ink/70">
-          E-mail
-        </label>
-        <input id="email" name="email" type="email" className={inputClass} />
-      </div>
-
-      {attending === "sim" && (
-        <div>
-          <span className="text-sm text-ink/70">Quantos acompanhantes?</span>
-          <div className="mt-2 flex items-center gap-4">
-            <span className="text-sm text-ink/60">Adultos</span>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => setGuests((g) => Math.max(0, g - 1))}
-                aria-label="Diminuir"
-                className="h-8 w-8 rounded-full border border-sand-dark/60 text-ocean-deep"
-              >
-                −
-              </button>
-              <span className="w-6 text-center">{guests}</span>
-              <button
-                type="button"
-                onClick={() => setGuests((g) => Math.min(20, g + 1))}
-                aria-label="Aumentar"
-                className="h-8 w-8 rounded-full border border-sand-dark/60 text-ocean-deep"
-              >
-                +
-              </button>
-            </div>
-          </div>
+        <span className="text-sm text-ink/70">Confirmo presença:</span>
+        <div className="mt-2 space-y-2">
+          {rsvp.eventOptions.map((option) => (
+            <label
+              key={option}
+              className="flex items-center gap-2 text-sm text-ink/80"
+            >
+              <input
+                type="checkbox"
+                checked={events.includes(option)}
+                onChange={() => toggleEvent(option)}
+              />
+              {option}
+            </label>
+          ))}
+          <label className="flex items-center gap-2 text-sm text-ink/80">
+            <input type="checkbox" checked={declined} onChange={toggleDecline} />
+            {rsvp.declineOption}
+          </label>
         </div>
-      )}
+      </div>
 
       {status === "error" && <p className="text-sm text-red-600">{errorMessage}</p>}
 

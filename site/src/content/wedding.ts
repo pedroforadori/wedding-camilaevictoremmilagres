@@ -184,10 +184,13 @@ export const fornecedores = {
     "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/14",
 };
 
+// Opções literais do briefing (set/2026) — nomes coloquiais usados só no RSVP,
+// diferentes dos títulos formais em `schedule` (ex.: "Welcome Drinks"/"Day Off").
 export const rsvp = {
   title: "Confirmação de presença",
   intro: "Faça parte da nossa história de amor, confirme sua presença.",
-  eventLabel: "Casamento",
+  eventOptions: ["Welcome Party", "Jangaday", "Casamento"],
+  declineOption: "Não poderei comparecer",
 };
 
 export const guestbook = {
