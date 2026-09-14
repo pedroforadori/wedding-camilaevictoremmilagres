@@ -1,5 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import { comoChegar } from "@/content/wedding";
-import { renderPhone, renderTextWithContactLinks } from "@/lib/contact-links";
+import { renderTextWithContactLinks } from "@/lib/contact-links";
 
 export function ComoChegarSection() {
   return (
@@ -23,37 +25,21 @@ export function ComoChegarSection() {
           ))}
         </div>
 
-        <div className="mt-12 grid gap-8 text-left sm:grid-cols-2">
-          {comoChegar.transferSections.map((transferSection) => (
-            <div key={transferSection.title}>
-              <h3 className="font-display text-lg italic text-ocean-deep">
-                {transferSection.title}
-              </h3>
-              <ul className="mt-3 space-y-1.5 text-sm text-ink/70">
-                {transferSection.contacts.map((contact) => (
-                  <li key={contact.name} className="flex justify-between gap-4">
-                    <span>{contact.name}</span>
-                    <span className="shrink-0 text-ink/50">
-                      {renderPhone(contact.phone)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className="mt-8 overflow-hidden rounded-2xl shadow-md">
+          <Image
+            src="/images/mapa-como-chegar.jpg"
+            alt="Mapa ilustrado da região de São Miguel dos Milagres, com a Casa Marceneiro (local do casamento), a Casa Orla Milagres (casa dos noivos), pousadas, restaurante e praias próximas"
+            width={1690}
+            height={1120}
+            className="h-auto w-full"
+          />
         </div>
-
-        <div className="mt-10 text-left text-sm text-ink/70">
-          <h3 className="font-display text-lg italic text-ocean-deep">
-            Farmácia
-          </h3>
-          <p className="mt-3 flex justify-between gap-4">
-            <span>{comoChegar.farmacia.name}</span>
-            <span className="shrink-0 text-ink/50">
-              {renderPhone(comoChegar.farmacia.phone)}
-            </span>
-          </p>
-        </div>
+        <Link
+          href="/como-chegar/transporte"
+          className="mt-4 inline-block text-sm text-ocean-deep underline decoration-ocean/40 underline-offset-2 hover:text-ocean"
+        >
+          Ver motoristas, transfer e farmácia
+        </Link>
       </div>
     </section>
   );
