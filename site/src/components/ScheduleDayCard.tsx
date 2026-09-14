@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ScheduleDay } from "@/content/wedding";
 import { DressCodeIllustration } from "@/components/DressCodeIllustration";
+import { ScheduleDayIcon } from "@/components/ScheduleDayIcon";
 
 const dicasLinkPattern = /\(ver nossas dicas\)/;
 
@@ -30,9 +31,12 @@ export function ScheduleDayCard({ day }: { day: ScheduleDay }) {
       <p className="font-body text-xs uppercase tracking-[0.3em] text-ocean">
         {day.date}
       </p>
-      <h3 className="mt-2 font-display text-3xl italic text-ocean-deep">
-        {day.title}
-      </h3>
+      <div className="mt-2 flex items-center gap-3">
+        <h3 className="font-display text-3xl italic text-ocean-deep">
+          {day.title}
+        </h3>
+        <ScheduleDayIcon day={day.day as 1 | 2 | 3} />
+      </div>
 
       {day.description ? (
         <div className="mt-6 space-y-3 text-sm text-ink/80">
@@ -51,7 +55,7 @@ export function ScheduleDayCard({ day }: { day: ScheduleDay }) {
             </div>
           )}
           {day.venue && (
-            <div>
+            <div className="sm:col-span-2">
               <dt className="text-xs uppercase tracking-wide text-ink/50">
                 Local
               </dt>
