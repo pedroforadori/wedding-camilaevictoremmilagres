@@ -62,29 +62,27 @@ export function CountdownCorner() {
 }
 
 // Versão compacta para telas pequenas, onde o widget de canto não é exibido
-// (colidiria com o botão de menu do header).
+// (colidiria com o botão de menu do header). Usa o mesmo cartão claro do
+// CountdownCorner, só que centralizado e em largura total, para manter a
+// identidade visual consistente entre mobile e desktop.
 export function CountdownInline() {
   const timeLeft = useCountdown();
 
   return (
-    <div className="sm:hidden">
-      <p className="text-center font-display text-lg uppercase tracking-[0.15em] text-taupe">
-        Faltam
-      </p>
-      <div className="mx-auto mt-4 grid max-w-xs grid-cols-4 gap-2">
-        {units.map((unit) => (
-          <div key={unit.key} className="flex flex-col items-center">
-            <div className="flex aspect-[6/5] w-full items-center justify-center rounded-md bg-taupe">
-              <span className="font-display text-lg text-foam">
-                {timeLeft ? timeLeft[unit.key] : "-"}
-              </span>
-            </div>
-            <span className="mt-2 font-display text-xs text-ink/70">
-              {unit.label}
-            </span>
-          </div>
-        ))}
-      </div>
+    <div
+      className="mx-auto flex max-w-xs items-center justify-between rounded-2xl border border-sand-dark/60 bg-foam/90 px-4 py-3 shadow-sm backdrop-blur sm:hidden"
+      aria-label="Contagem regressiva para o casamento"
+    >
+      {units.map((unit) => (
+        <div key={unit.key} className="flex flex-col items-center px-1">
+          <span className="font-display text-xl leading-none text-ocean-deep">
+            {timeLeft ? timeLeft[unit.key] : "-"}
+          </span>
+          <span className="mt-1 text-[10px] uppercase tracking-wide text-ink/50">
+            {unit.label}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
