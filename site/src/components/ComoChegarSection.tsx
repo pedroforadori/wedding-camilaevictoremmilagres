@@ -1,4 +1,5 @@
 import { comoChegar } from "@/content/wedding";
+import { renderPhone, renderTextWithContactLinks } from "@/lib/contact-links";
 
 export function ComoChegarSection() {
   return (
@@ -18,7 +19,7 @@ export function ComoChegarSection() {
 
         <div className="mt-8 space-y-4 text-left text-ink/80">
           {comoChegar.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <p key={paragraph}>{renderTextWithContactLinks(paragraph)}</p>
           ))}
         </div>
 
@@ -33,7 +34,7 @@ export function ComoChegarSection() {
                   <li key={contact.name} className="flex justify-between gap-4">
                     <span>{contact.name}</span>
                     <span className="shrink-0 text-ink/50">
-                      {contact.phone}
+                      {renderPhone(contact.phone)}
                     </span>
                   </li>
                 ))}
@@ -49,7 +50,7 @@ export function ComoChegarSection() {
           <p className="mt-3 flex justify-between gap-4">
             <span>{comoChegar.farmacia.name}</span>
             <span className="shrink-0 text-ink/50">
-              {comoChegar.farmacia.phone}
+              {renderPhone(comoChegar.farmacia.phone)}
             </span>
           </p>
         </div>

@@ -1,45 +1,6 @@
 import Image from "next/image";
 import type { DicaSection } from "@/content/wedding";
-
-const contactLinkClass =
-  "text-ocean-deep underline decoration-ocean/40 underline-offset-2 hover:text-ocean";
-
-function renderPhone(phone: string) {
-  const segments = phone.split("/").map((part) => part.trim());
-  return segments.map((part, index) => {
-    const digits = part.replace(/\D/g, "");
-    const isWhatsapp = /whatsapp/i.test(part) || digits.length === 11;
-    const href = isWhatsapp
-      ? `https://wa.me/55${digits}`
-      : `tel:+55${digits}`;
-    return (
-      <span key={index}>
-        <a
-          href={href}
-          target={isWhatsapp ? "_blank" : undefined}
-          rel={isWhatsapp ? "noreferrer" : undefined}
-          className={contactLinkClass}
-        >
-          {part}
-        </a>
-        {index < segments.length - 1 ? " / " : ""}
-      </span>
-    );
-  });
-}
-
-function InstagramLink({ handle }: { handle: string }) {
-  return (
-    <a
-      href={`https://instagram.com/${handle.replace(/^@/, "")}`}
-      target="_blank"
-      rel="noreferrer"
-      className={contactLinkClass}
-    >
-      {handle}
-    </a>
-  );
-}
+import { InstagramLink, renderPhone } from "@/lib/contact-links";
 
 export function DicaCard({ section }: { section: DicaSection }) {
   const isCompact = section.items.every(
