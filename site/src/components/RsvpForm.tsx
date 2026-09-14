@@ -6,6 +6,17 @@ import { rsvp } from "@/content/wedding";
 const inputClass =
   "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-ocean";
 
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length === 0) return "";
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  }
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 export function RsvpForm() {
   const [guestNames, setGuestNames] = useState<string[]>([""]);
   const [phone, setPhone] = useState("");
@@ -134,9 +145,12 @@ export function RsvpForm() {
         <input
           id="phone"
           type="tel"
+          inputMode="numeric"
           required
+          placeholder="(00) 00000-0000"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setPhone(formatPhone(e.target.value))}
+          maxLength={15}
           className={inputClass}
         />
       </div>
