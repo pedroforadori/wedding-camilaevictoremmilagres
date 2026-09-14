@@ -1,17 +1,10 @@
-import { readJsonLines } from "@/lib/dataStore";
+import { listRsvps } from "@/lib/rsvpStore";
 import { AdminSubpageHeader } from "../AdminSubpageHeader";
 
 export const dynamic = "force-dynamic";
 
-type RsvpEntry = {
-  guests: { fullName: string; isPlusOne: boolean }[];
-  phone: string;
-  events: string[];
-  submittedAt: string;
-};
-
-export default function AdminNoivosRsvpsPage() {
-  const rsvps = readJsonLines<RsvpEntry>("rsvps.jsonl").reverse();
+export default async function AdminNoivosRsvpsPage() {
+  const rsvps = (await listRsvps()).reverse();
 
   return (
     <section className="texture-paper px-6 py-24">

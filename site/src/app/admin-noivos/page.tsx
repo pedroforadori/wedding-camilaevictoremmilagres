@@ -1,19 +1,16 @@
 import Link from "next/link";
 import { readJsonLines } from "@/lib/dataStore";
+import { listRsvps } from "@/lib/rsvpStore";
 import { getVisitStats } from "@/lib/visitStats";
 import { logout } from "./login/actions";
 import { VisitsChart } from "./VisitsChart";
 
 export const dynamic = "force-dynamic";
 
-type RsvpEntry = {
-  guests: { fullName: string; isPlusOne: boolean }[];
-  events: string[];
-};
 type GuestbookEntry = { submittedAt: string };
 
 export default async function AdminNoivosPage() {
-  const rsvps = readJsonLines<RsvpEntry>("rsvps.jsonl");
+  const rsvps = await listRsvps();
   const messages = readJsonLines<GuestbookEntry>("guestbook.jsonl");
   const confirmedGuests = rsvps.reduce(
     (total, entry) =>

@@ -1,4 +1,4 @@
-import { appendJsonLine } from "@/lib/dataStore";
+import { saveRsvp } from "@/lib/rsvpStore";
 
 type GuestInput = { fullName: string; isPlusOne: boolean };
 
@@ -30,12 +30,19 @@ export async function POST(request: Request) {
     );
   }
 
-  appendJsonLine("rsvps.jsonl", {
+  const saved = await saveRsvp({
     guests,
     phone,
     events,
     submittedAt: new Date().toISOString(),
   });
+
+  if (!saved) {
+    return Response.json(
+      { error: "Confirmação indisponível." },
+      { status: 503 },
+    );
+  }
 
   return Response.json({ ok: true });
 }
