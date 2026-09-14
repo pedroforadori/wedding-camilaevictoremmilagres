@@ -1,4 +1,5 @@
 import { Monogram } from "./Monogram";
+import { VisitCounter } from "./VisitCounter";
 import { couple, wedding } from "@/content/wedding";
 
 export function Footer() {
@@ -19,6 +20,7 @@ export function Footer() {
           {wedding.instagramHandle}
         </a>
         <p className="mt-4 text-xs text-foam/50">{wedding.domain}</p>
+        <VisitCounter />
       </div>
     </footer>
   );
