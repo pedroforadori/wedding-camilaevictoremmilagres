@@ -1,4 +1,3 @@
-import { SectionHeading } from "./SectionHeading";
 import { invitation, wedding } from "@/content/wedding";
 
 function renderParagraph(text: string, key: number) {
@@ -30,18 +29,19 @@ function renderParagraph(text: string, key: number) {
 
 export function Invitation() {
   return (
-    <section id="convite" className="bg-foam px-6 py-24">
-      <div className="mx-auto max-w-2xl">
-        <SectionHeading eyebrow="Um recado dos noivos" title="O convite" />
-
-        <div className="mt-10 space-y-5 text-center font-body text-base leading-relaxed text-ink/90 sm:text-lg">
-          <p className="font-display text-2xl italic text-ocean-deep">
+    <section
+      id="convite"
+      className="texture-linen relative scroll-mt-24 bg-foam px-6 py-16"
+    >
+      <div className="relative mx-auto max-w-2xl">
+        <div className="space-y-3 text-center font-body text-sm leading-relaxed text-ink/90 sm:text-base">
+          <p className="font-display text-xl italic text-ocean-deep">
             {invitation.heading}
           </p>
           {invitation.paragraphs.map((paragraph, index) =>
             renderParagraph(paragraph, index),
           )}
-          <p className="whitespace-pre-line pt-4 font-script text-3xl text-ocean-deep">
+          <p className="whitespace-pre-line pt-3 font-script text-2xl text-ocean-deep">
             {invitation.signature}
           </p>
         </div>

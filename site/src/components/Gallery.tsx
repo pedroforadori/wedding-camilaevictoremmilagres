@@ -5,7 +5,7 @@ const placeholderTiles = Array.from({ length: 8 });
 
 export function Gallery() {
   return (
-    <section id="galeria" className="bg-sand/40 px-6 py-24">
+    <section id="galeria" className="texture-paper bg-foam px-6 py-24">
       <div className="mx-auto max-w-4xl">
         <SectionHeading eyebrow="Camila & Victor" title="Galeria" />
 

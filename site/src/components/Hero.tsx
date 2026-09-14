@@ -1,41 +1,49 @@
 import Image from "next/image";
-import { couple, wedding } from "@/content/wedding";
+import { Monogram } from "./Monogram";
+import { WatercolorWaves } from "./WatercolorWaves";
+import { wedding } from "@/content/wedding";
 
+// Composição no formato do save-the-date enviado pelos noivos: aquarela da
+// praia no topo, sangrando para uma seção em papel com o monograma, o nome
+// em cursiva e a data/local.
 export function Hero() {
   return (
-    <section
-      id="topo"
-      className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 pb-24 pt-16 text-center"
-    >
-      <Image
-        src="/images/hero-casal.jpg"
-        alt="Camila e Victor abraçados de costas, em frente a coqueirais e à capela de São Miguel dos Milagres"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/35 to-ink/60" />
+    <section id="topo" className="relative scroll-mt-24">
+      <div className="relative h-[48vh] min-h-[320px] sm:h-[60vh]">
+        <Image
+          src="/images/aquarela-praia.jpg"
+          alt="Aquarela do litoral de São Miguel dos Milagres, com coqueiros e mar azul"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
 
-      <div className="relative z-10 flex flex-col items-center">
-        <p className="font-body text-sm uppercase tracking-[0.3em] text-foam/90">
-          Nós vamos nos casar
-        </p>
+      <WatercolorWaves id="hero-waves" className="h-12 w-full sm:h-20" />
 
-        <h1 className="mt-4 font-display text-5xl font-medium italic text-foam sm:text-7xl">
-          {couple.names}
-        </h1>
+      <div className="texture-paper relative bg-foam px-6 py-16 text-center">
+        <div className="relative mx-auto flex max-w-md flex-col items-center">
+          <Monogram className="h-24 w-auto sm:h-28" />
 
-        <p className="mt-6 max-w-md text-balance font-body text-base text-foam/90">
-          Três dias de celebração à beira-mar em {wedding.city}, {wedding.state}.
-        </p>
+          <h1 className="mt-6 font-script text-5xl text-ocean-deep sm:text-7xl">
+            Camila e Victor
+          </h1>
 
-        <a
-          href="#convite"
-          className="mt-10 rounded-full border border-foam/60 px-6 py-2 text-sm tracking-wide text-foam transition-colors hover:bg-foam hover:text-ocean-deep"
-        >
-          Ler o convite
-        </a>
+          <p className="mt-8 font-display text-lg tracking-wide text-ink/80 [font-variant:small-caps] sm:text-xl">
+            {wedding.dateRangeLabel}
+          </p>
+          <p className="mt-2 font-display text-sm tracking-[0.15em] text-ink/60 [font-variant:small-caps] sm:text-base">
+            {wedding.cityStateLabel}
+          </p>
+
+          <a
+            href="#convite"
+            className="mt-10 rounded-full border border-ocean-deep/40 px-6 py-2 text-sm tracking-wide text-ocean-deep transition-colors hover:bg-ocean-deep hover:text-foam"
+          >
+            Ler o convite
+          </a>
+        </div>
       </div>
     </section>
   );

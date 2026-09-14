@@ -4,7 +4,13 @@
  * com uma textura de turbulência SVG para simular o efeito de pincel/aquarela.
  * Placeholder — trocar pela arte original assim que o PDF estiver disponível.
  */
-export function WatercolorWaves({ className = "" }: { className?: string }) {
+export function WatercolorWaves({
+  className = "",
+  id = "watercolor-texture",
+}: {
+  className?: string;
+  id?: string;
+}) {
   return (
     <svg
       viewBox="0 0 1440 400"
@@ -13,7 +19,7 @@ export function WatercolorWaves({ className = "" }: { className?: string }) {
       aria-hidden="true"
     >
       <defs>
-        <filter id="watercolor-texture">
+        <filter id={id}>
           <feTurbulence
             type="fractalNoise"
             baseFrequency="0.012 0.02"
@@ -24,7 +30,7 @@ export function WatercolorWaves({ className = "" }: { className?: string }) {
           <feDisplacementMap in="SourceGraphic" in2="noise" scale={22} />
         </filter>
       </defs>
-      <g filter="url(#watercolor-texture)">
+      <g filter={`url(#${id})`}>
         <path
           d="M0,120 C240,180 420,60 720,110 C1020,160 1200,80 1440,130 L1440,400 L0,400 Z"
           fill="var(--color-sand)"

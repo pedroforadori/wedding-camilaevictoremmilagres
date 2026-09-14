@@ -1,16 +1,8 @@
-import type { Metadata } from "next";
-import { SimplePageLayout } from "@/components/SimplePageLayout";
-import { PendingNote } from "@/components/PendingNote";
-import { presentes } from "@/content/wedding";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Lista de casamento virtual | Camila & Victor",
-};
-
-export default function PresentesPage() {
-  return (
-    <SimplePageLayout title={presentes.title} intro={presentes.intro}>
-      <PendingNote note={presentes.note} />
-    </SimplePageLayout>
-  );
+// Rota antiga da arquitetura multi-página — o conteúdo agora vive na âncora
+// #presentes da home (ver src/app/page.tsx e
+// src/components/PresentesSection.tsx).
+export default function PresentesRedirect() {
+  redirect("/#presentes");
 }

@@ -4,24 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Monogram } from "./Monogram";
-import { navigation } from "@/content/wedding";
+import { primaryNav, morePages } from "@/content/wedding";
 
-function NavDropdown({ label, links }: (typeof navigation)[number]) {
+function MoreDropdown() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  if (links.length === 1) {
-    return (
-      <Link
-        href={links[0].href}
-        className={`text-sm tracking-wide transition-colors hover:text-ocean-deep ${
-          pathname === links[0].href ? "text-ocean-deep" : "text-ink/80"
-        }`}
-      >
-        {label}
-      </Link>
-    );
-  }
 
   return (
     <div
@@ -35,7 +22,7 @@ function NavDropdown({ label, links }: (typeof navigation)[number]) {
         aria-expanded={open}
         className="flex items-center gap-1 text-sm tracking-wide text-ink/80 transition-colors hover:text-ocean-deep"
       >
-        {label}
+        Mais
         <svg
           width="10"
           height="6"
@@ -56,7 +43,7 @@ function NavDropdown({ label, links }: (typeof navigation)[number]) {
         // ao descer do botão até a lista (o que fechava o menu antes de chegar).
         <div className="absolute left-1/2 top-full z-20 w-56 -translate-x-1/2 pt-2">
           <ul className="rounded-xl border border-sand-dark/60 bg-foam py-2 shadow-lg">
-            {links.map((link) => (
+            {morePages.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -81,7 +68,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-foam sm:hidden">
       <div className="flex items-center justify-between border-b border-sand-dark/60 px-6 py-3">
-        <Link href="/" onClick={onClose} className="flex items-center gap-3">
+        <Link href="/#topo" onClick={onClose} className="flex items-center gap-3">
           <Monogram className="h-10 w-auto" />
           <span className="font-display text-lg tracking-wide text-ocean-deep">
             Camila &amp; Victor
@@ -110,28 +97,38 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </button>
       </div>
       <nav className="flex-1 overflow-y-auto px-6 py-6">
-        {navigation.map((group) => (
-          <div key={group.label} className="mb-8">
-            <p className="mb-3 text-xs uppercase tracking-[0.25em] text-ocean">
-              {group.label}
-            </p>
-            <ul className="space-y-3">
-              {group.links.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={onClose}
-                    className={`font-display text-2xl italic transition-colors ${
-                      pathname === link.href ? "text-ocean-deep" : "text-ink/80"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <ul className="space-y-3">
+          {primaryNav.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onClick={onClose}
+                className="font-display text-2xl italic text-ink/80 transition-colors hover:text-ocean-deep"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mb-3 mt-8 text-xs uppercase tracking-[0.25em] text-ocean">
+          Mais
+        </p>
+        <ul className="space-y-3">
+          {morePages.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                onClick={onClose}
+                className={`font-display text-2xl italic transition-colors ${
+                  pathname === link.href ? "text-ocean-deep" : "text-ink/80"
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
     </div>
   );
@@ -144,7 +141,7 @@ export function Header() {
     <>
       <header className="sticky top-0 z-40 border-b border-sand-dark/60 bg-foam/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/#topo" className="flex items-center gap-3">
             <Monogram className="h-10 w-auto" />
             <span className="font-display text-lg tracking-wide text-ocean-deep">
               Camila &amp; Victor
@@ -152,9 +149,16 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-8 sm:flex">
-            {navigation.map((group) => (
-              <NavDropdown key={group.label} {...group} />
+            {primaryNav.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm tracking-wide text-ink/80 transition-colors hover:text-ocean-deep"
+              >
+                {link.label}
+              </Link>
             ))}
+            <MoreDropdown />
           </nav>
 
           <button

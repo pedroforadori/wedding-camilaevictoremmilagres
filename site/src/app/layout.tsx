@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Parisienne, Jost } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CountdownCorner } from "@/components/Countdown";
 import "./globals.css";
 
 const displaySerif = Cormorant_Garamond({
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-foam text-ink font-body antialiased">
         <Header />
+        <CountdownCorner />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

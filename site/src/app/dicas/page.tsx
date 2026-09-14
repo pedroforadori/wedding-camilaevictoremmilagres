@@ -1,14 +1,7 @@
-import type { Metadata } from "next";
-import { SimplePageLayout } from "@/components/SimplePageLayout";
-import { PendingNote } from "@/components/PendingNote";
-import { dicas } from "@/content/wedding";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Dicas | Camila & Victor" };
-
-export default function DicasPage() {
-  return (
-    <SimplePageLayout title={dicas.title} intro={dicas.intro}>
-      <PendingNote note={dicas.note} />
-    </SimplePageLayout>
-  );
+// Rota antiga da arquitetura multi-página — o conteúdo agora vive na âncora
+// #dicas da home (ver src/app/page.tsx e src/components/DicasSection.tsx).
+export default function DicasRedirect() {
+  redirect("/#dicas");
 }

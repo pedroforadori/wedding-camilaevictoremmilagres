@@ -1,17 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta aproximada a partir da aquarela de praia e do monograma da issue #8
-     (litoral de São Miguel dos Milagres) — trocar por tons extraídos da arte
-     original quando o PDF estiver disponível no repositório. */
-  --color-foam: #fbf7f0;
-  --color-sand: #f0e3cd;
-  --color-sand-dark: #ddc9a3;
-  --color-ocean: #3e7c82;
-  --color-ocean-deep: #1f4e52;
-  --color-coral: #d98b76;
-  --color-ink: #2b2420;
-  --color-taupe: #8a7a5c;
+  /* Paleta oficial enviada pelos noivos (arquivo de swatches, set/2026):
+     creme, azul acinzentado, azul médio, azul marinho e verde sálvia. */
+  --color-foam: #efe9db;
+  --color-sand: #b8c5d2;
+  --color-sand-dark: #93a4b6;
+  --color-ocean: #6d93b0;
+  --color-ocean-deep: #355e82;
+  --color-ink: #2b2b28;
+  --color-taupe: #7c8a63;
+
+  /* Terracota do rabisco decorativo (squiggle) usado nos cards de Dicas do
+     site de referência (Wix, ver issue #11) — cor amostrada da própria
+     imagem de referência, não faz parte da paleta oficial de 5 swatches
+     dos noivos. Usar só nesse elemento decorativo específico. */
+  --color-terracotta: #b98671;
+
+  /* Textura de papel principal (foto de referência enviada pelos
+     noivos), usada como fundo do body inteiro para que o site nunca
+     mostre cor sólida "chapada", igual à referência. Aplicada com
+     background-blend-mode: multiply sobre --color-foam para herdar o
+     tom creme da paleta em vez do branco/cinza da foto original.
+     Existe também /images/textura-linho.png (grão de linho mais
+     grosso), usada pontualmente via .texture-linen no recado dos
+     noivos (Invitation) e na seção de Dicas, não como textura
+     padrão do site. */
+  --texture-paper-image: url("/images/textura-papel.png");
+  --texture-linen-image: url("/images/textura-linho.png");
 }
 
 @theme inline {
@@ -20,16 +36,36 @@
   --color-sand-dark: var(--color-sand-dark);
   --color-ocean: var(--color-ocean);
   --color-ocean-deep: var(--color-ocean-deep);
-  --color-coral: var(--color-coral);
   --color-ink: var(--color-ink);
   --color-taupe: var(--color-taupe);
+  --color-terracotta: var(--color-terracotta);
 
   --font-display: var(--font-display);
   --font-script: var(--font-script);
   --font-body: var(--font-body);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--color-foam);
+  background-color: var(--color-foam);
+  background-image: var(--texture-paper-image);
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-blend-mode: multiply;
   color: var(--color-ink);
+}
+
+.texture-paper {
+  background-image: var(--texture-paper-image);
+  background-repeat: repeat;
+  background-blend-mode: multiply;
+}
+
+.texture-linen {
+  background-image: var(--texture-linen-image);
+  background-repeat: repeat;
+  background-blend-mode: multiply;
 }

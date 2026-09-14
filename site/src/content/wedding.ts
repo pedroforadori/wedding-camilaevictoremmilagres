@@ -17,6 +17,9 @@ export const wedding = {
   instagramUrl: "https://www.instagram.com/camilaevictoremmilagres",
   // Data/hora do casamento (dia 3, ver `schedule`) — alvo da contagem regressiva.
   ceremonyDateTimeISO: "2027-10-11T15:00:00-03:00",
+  // Textos do hero, no formato do save-the-date enviado pelos noivos.
+  dateRangeLabel: "09 a 12 de Outubro de 2027",
+  cityStateLabel: "São Miguel dos Milagres - AL",
 };
 
 // Issue #3 — texto de abertura enviado pronto pelos noivos para a home page.
@@ -194,34 +197,28 @@ export const guestbook = {
 };
 
 export type NavLink = { label: string; href: string };
-export type NavGroup = { label: string; links: NavLink[] };
 
-// Estrutura de navegação replicada do menu do site de referência (dropdowns
-// "Páginas" / "Presentes" / "Confirmar Presença"), com a Galeria adicionada em
-// "Páginas" a pedido explícito dos noivos (issue #5) — o site de referência
-// ainda não tem uma página de galeria própria.
-export const navigation: NavGroup[] = [
-  {
-    label: "Páginas",
-    links: [
-      { label: "Página Inicial", href: "/" },
-      { label: "Programação", href: "/programacao" },
-      { label: "Cerimônia", href: "/cerimonia" },
-      { label: "Festa", href: "/festa" },
-      { label: "Chá Bar", href: "/cha-bar" },
-      { label: "Dicas", href: "/dicas" },
-      { label: "Padrinhos", href: "/padrinhos" },
-      { label: "Galeria", href: "/galeria" },
-      { label: "Mensagens", href: "/mensagens" },
-      { label: "Fornecedores", href: "/fornecedores" },
-    ],
-  },
-  {
-    label: "Presentes",
-    links: [{ label: "Lista de casamento virtual", href: "/presentes" }],
-  },
-  {
-    label: "Confirmar Presença",
-    links: [{ label: "Casamento", href: "/confirmar-presenca" }],
-  },
+// Nav replicada do site de referência (estudiofestiv.wixsite.com/website-19):
+// menu fixo com âncoras que rolam até as seções da página única (Início,
+// Programação, R.S.V.P., Dicas, Como Chegar, Presentes, Mensagens). As
+// páginas que a referência não tem (Cerimônia, Festa, Chá Bar, Padrinhos,
+// Galeria, Fornecedores — issue #5 e o restante da arquitetura multi-página
+// anterior) ficam num item "Mais" separado, como páginas de verdade.
+export const primaryNav: NavLink[] = [
+  { label: "Início", href: "/#topo" },
+  { label: "Programação", href: "/#programacao" },
+  { label: "R.S.V.P.", href: "/#rsvp" },
+  { label: "Dicas", href: "/#dicas" },
+  { label: "Como Chegar", href: "/#como-chegar" },
+  { label: "Presentes", href: "/#presentes" },
+  { label: "Mensagens", href: "/#mensagens" },
+];
+
+export const morePages: NavLink[] = [
+  { label: "Cerimônia", href: "/cerimonia" },
+  { label: "Festa", href: "/festa" },
+  { label: "Chá Bar", href: "/cha-bar" },
+  { label: "Padrinhos", href: "/padrinhos" },
+  { label: "Galeria", href: "/galeria" },
+  { label: "Fornecedores", href: "/fornecedores" },
 ];
