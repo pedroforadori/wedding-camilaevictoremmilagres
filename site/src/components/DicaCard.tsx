@@ -17,7 +17,7 @@ export function DicaCard({ section }: { section: DicaSection }) {
         height={section.icon.height}
         className="mx-auto h-16 w-auto object-contain"
       />
-      <h2 className="mt-2 text-center font-display text-2xl italic text-ocean-deep">
+      <h2 className="mt-2 text-center font-display text-2xl text-gold">
         {section.title}
       </h2>
       <span

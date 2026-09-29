@@ -16,7 +16,7 @@ function renderDescriptionParagraph(paragraph: string) {
       (ver{" "}
       <Link
         href="/#dicas"
-        className="underline decoration-ocean/40 underline-offset-4 hover:text-ocean"
+        className="underline decoration-gold/40 underline-offset-4 hover:text-gold"
       >
         nossas dicas
       </Link>
@@ -28,15 +28,11 @@ function renderDescriptionParagraph(paragraph: string) {
 export function ScheduleDayCard({ day }: { day: ScheduleDay }) {
   return (
     <div>
-      <p className="font-body text-xs uppercase tracking-[0.3em] text-ocean">
+      <ScheduleDayIcon day={day.day as 1 | 2 | 3} />
+      <p className="mt-4 font-body text-xs uppercase tracking-[0.3em] text-gold">
         {day.date}
       </p>
-      <div className="mt-2 flex items-center gap-3">
-        <h3 className="font-display text-3xl italic text-ocean-deep">
-          {day.title}
-        </h3>
-        <ScheduleDayIcon day={day.day as 1 | 2 | 3} />
-      </div>
+      <h3 className="mt-2 font-display text-3xl text-gold">{day.title}</h3>
 
       {day.description ? (
         <div className="mt-6 space-y-3 text-sm text-ink/80">
@@ -76,11 +72,13 @@ export function ScheduleDayCard({ day }: { day: ScheduleDay }) {
                 Traje
               </dt>
               <dd className="mt-1">{day.dressCode}</dd>
-              {day.dressNotes?.map((note) => (
-                <p key={note} className="mt-1 text-ink/60">
-                  {note}
-                </p>
-              ))}
+              {day.dressNotes && (
+                <div className="mt-4 space-y-2 text-ink/60">
+                  {day.dressNotes.map((note) => (
+                    <p key={note}>{note}</p>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </dl>

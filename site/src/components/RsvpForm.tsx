@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { rsvp } from "@/content/wedding";
 
 const inputClass =
-  "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-ocean";
+  "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-gold";
 
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 11);
@@ -89,7 +89,7 @@ export function RsvpForm() {
   if (status === "success") {
     return (
       <div className="mt-10 rounded-2xl border border-sand-dark/60 bg-sand/30 px-8 py-10 text-center">
-        <p className="font-display text-2xl italic text-ocean-deep">
+        <p className="font-display text-2xl text-gold">
           Presença confirmada!
         </p>
         <p className="mt-2 text-sm text-ink/70">
@@ -121,7 +121,7 @@ export function RsvpForm() {
                   type="button"
                   onClick={() => removeGuest(index)}
                   aria-label="Remover acompanhante"
-                  className="mt-1 h-9 w-9 shrink-0 rounded-full border border-sand-dark/60 text-ocean-deep"
+                  className="mt-1 h-9 w-9 shrink-0 rounded-full border border-sand-dark/60 text-gold-deep"
                 >
                   −
                 </button>
@@ -132,7 +132,7 @@ export function RsvpForm() {
         <button
           type="button"
           onClick={addGuest}
-          className="text-sm text-ocean-deep underline decoration-ocean/40 underline-offset-4 hover:text-ocean"
+          className="text-sm text-gold-deep underline decoration-gold/40 underline-offset-4 hover:text-gold"
         >
           + Adicionar acompanhante
         </button>
@@ -183,7 +183,7 @@ export function RsvpForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-full bg-ocean-deep px-6 py-3 text-sm tracking-wide text-foam transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="w-full rounded-full bg-gold-deep px-6 py-3 text-sm tracking-wide text-foam transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {status === "loading" ? "Enviando…" : "Responder"}
       </button>

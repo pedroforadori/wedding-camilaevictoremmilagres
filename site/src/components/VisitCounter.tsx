@@ -25,7 +25,7 @@ export function VisitCounter() {
   if (count === null) return null;
 
   return (
-    <p className="text-xs text-foam/50">
+    <p className="text-xs text-ink/50">
       {count.toLocaleString("pt-BR")} visitas ao site
     </p>
   );

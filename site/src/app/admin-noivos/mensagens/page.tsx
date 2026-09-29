@@ -28,7 +28,7 @@ export default function AdminNoivosMensagensPage() {
                 className="rounded-xl border border-sand-dark/60 bg-sand/30 px-6 py-5"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <p className="text-xs uppercase tracking-wide text-ocean-deep">
+                  <p className="text-xs uppercase tracking-wide text-gold-deep">
                     {entry.name}
                     {entry.email ? ` · ${entry.email}` : ""}
                   </p>

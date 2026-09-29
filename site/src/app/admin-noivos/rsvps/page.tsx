@@ -34,7 +34,7 @@ export default async function AdminNoivosRsvpsPage() {
                   </p>
                 </div>
                 <p className="mt-2 text-sm text-ink/70">Telefone: {entry.phone}</p>
-                <p className="mt-1 text-xs uppercase tracking-wide text-ocean-deep">
+                <p className="mt-1 text-xs uppercase tracking-wide text-gold-deep">
                   {entry.events.length > 0 ? entry.events.join(" · ") : "Sem eventos selecionados"}
                 </p>
               </div>

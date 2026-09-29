@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 const inputClass =
-  "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-ocean";
+  "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-gold";
 
 export function GuestbookForm() {
   const router = useRouter();
@@ -72,13 +72,13 @@ export function GuestbookForm() {
 
       {status === "error" && <p className="text-sm text-red-600">{errorMessage}</p>}
       {status === "success" && (
-        <p className="text-sm text-ocean-deep">Mensagem enviada, obrigado!</p>
+        <p className="text-sm text-gold-deep">Mensagem enviada, obrigado!</p>
       )}
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="rounded-full bg-ocean-deep px-6 py-3 text-sm tracking-wide text-foam transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="rounded-full bg-gold-deep px-6 py-3 text-sm tracking-wide text-foam transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {status === "loading" ? "Enviando…" : "Enviar mensagem"}
       </button>

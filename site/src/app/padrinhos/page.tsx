@@ -3,7 +3,7 @@ import { SimplePageLayout } from "@/components/SimplePageLayout";
 import { PendingNote } from "@/components/PendingNote";
 import { padrinhos } from "@/content/wedding";
 
-export const metadata: Metadata = { title: "Padrinhos | Camila & Victor" };
+export const metadata: Metadata = { title: "Padrinhos | Camila e Victor" };
 
 export default function PadrinhosPage() {
   return (

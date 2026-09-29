@@ -7,10 +7,10 @@ export function DicasSection() {
   return (
     <section
       id="dicas"
-      className="texture-linen scroll-mt-24 bg-foam px-6 py-24"
+      className="texture-paper scroll-mt-24 bg-foam px-6 py-24"
     >
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-4xl italic text-ocean-deep">
+        <h2 className="font-display text-4xl text-gold">
           {dicas.title}
         </h2>
         <span
@@ -21,10 +21,10 @@ export function DicasSection() {
       </div>
 
       <div className="mx-auto mt-12 max-w-2xl text-center">
-        <h3 className="font-display text-2xl italic text-ocean-deep">
+        <h3 className="font-display text-2xl text-gold">
           {dicas.guideTitle}
         </h3>
-        <p className="mt-4 rounded-xl border border-ocean/30 bg-ocean/10 px-4 py-3 text-sm text-ocean-deep">
+        <p className="mt-4 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold-deep">
           {dicas.warning}
         </p>
       </div>
@@ -34,7 +34,7 @@ export function DicasSection() {
           <Link
             key={section.key}
             href={`/dicas/${section.key}`}
-            className="group relative isolate flex aspect-[4/5] flex-col items-center justify-center gap-4 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            className="group relative isolate flex aspect-[4/5] flex-col items-center justify-center gap-4 border border-gold/25 bg-white p-6 text-center shadow-[0_1px_24px_-12px_rgba(127,97,57,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
             <SquiggleCorner className="pointer-events-none absolute -z-10 right-2 top-2 h-[42%] w-[42%] text-terracotta/70 transition-colors duration-300 group-hover:text-terracotta" />
             <SquiggleCorner className="pointer-events-none absolute -z-10 bottom-2 left-2 h-[42%] w-[42%] rotate-180 text-terracotta/70 transition-colors duration-300 group-hover:text-terracotta" />

@@ -16,10 +16,10 @@ export function VisitsChart({ stats }: { stats: VisitStats | null }) {
   return (
     <div className="rounded-2xl border border-sand-dark/60 bg-sand/30 px-6 py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="font-display text-2xl italic text-ocean-deep">Visitas</p>
+        <p className="font-display text-2xl text-gold">Visitas</p>
         {stats && (
           <p className="text-right">
-            <span className="font-display text-3xl italic text-ocean-deep">
+            <span className="font-display text-3xl text-gold">
               {stats.count}
             </span>{" "}
             <span className="text-xs uppercase tracking-wide text-ink/60">

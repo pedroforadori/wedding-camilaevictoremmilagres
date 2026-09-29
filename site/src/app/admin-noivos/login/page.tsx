@@ -4,7 +4,7 @@ export default function AdminNoivosLoginPage() {
   return (
     <section className="texture-paper px-6 py-24">
       <div className="mx-auto max-w-md text-center">
-        <h1 className="font-display text-4xl italic text-ocean-deep">
+        <h1 className="font-display text-4xl text-gold">
           Área dos noivos
         </h1>
         <span

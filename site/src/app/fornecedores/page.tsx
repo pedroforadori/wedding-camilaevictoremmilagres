@@ -3,7 +3,7 @@ import { SimplePageLayout } from "@/components/SimplePageLayout";
 import { PendingNote } from "@/components/PendingNote";
 import { fornecedores } from "@/content/wedding";
 
-export const metadata: Metadata = { title: "Fornecedores | Camila & Victor" };
+export const metadata: Metadata = { title: "Fornecedores | Camila e Victor" };
 
 export default function FornecedoresPage() {
   return (

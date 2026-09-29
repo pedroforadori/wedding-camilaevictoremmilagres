@@ -12,7 +12,7 @@ export function SimplePageLayout({
   return (
     <section className="px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="font-display text-4xl italic text-ocean-deep">
+        <h1 className="font-display text-4xl text-gold">
           {title}
         </h1>
         <span

@@ -48,7 +48,7 @@ export function CountdownCorner() {
       <div className="flex items-center gap-2">
         {units.map((unit) => (
           <div key={unit.key} className="flex flex-col items-center px-1">
-            <span className="font-display text-base leading-none text-ocean-deep">
+            <span className="font-display text-base leading-none text-gold">
               {timeLeft ? timeLeft[unit.key] : "-"}
             </span>
             <span className="mt-1 text-[9px] uppercase tracking-wide text-ink/50">
@@ -79,7 +79,7 @@ export function CountdownInline() {
       >
         {units.map((unit) => (
           <div key={unit.key} className="flex flex-col items-center px-1">
-            <span className="font-display text-xl leading-none text-ocean-deep">
+            <span className="font-display text-xl leading-none text-gold">
               {timeLeft ? timeLeft[unit.key] : "-"}
             </span>
             <span className="mt-1 text-[10px] uppercase tracking-wide text-ink/50">

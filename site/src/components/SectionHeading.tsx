@@ -7,10 +7,10 @@ export function SectionHeading({
 }) {
   return (
     <div className="flex flex-col items-center text-center">
-      <p className="font-body text-xs uppercase tracking-[0.3em] text-ocean">
+      <p className="font-body text-xs uppercase tracking-[0.3em] text-gold">
         {eyebrow}
       </p>
-      <h2 className="mt-2 font-display text-4xl italic text-ocean-deep">
+      <h2 className="mt-2 font-display text-4xl text-gold">
         {title}
       </h2>
       <span

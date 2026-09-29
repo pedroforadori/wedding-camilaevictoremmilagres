@@ -10,15 +10,13 @@ export function ComoChegarSection() {
       className="texture-paper scroll-mt-24 bg-foam px-6 py-24"
     >
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="font-display text-4xl italic text-ocean-deep">
+        <h2 className="font-display text-4xl text-gold">
           {comoChegar.title}
         </h2>
         <span
           aria-hidden="true"
           className="mx-auto mt-4 block h-px w-16 bg-sand-dark"
         />
-        <p className="mt-8 text-ink/80">{comoChegar.intro}</p>
-
         <div className="mt-8 space-y-4 text-left text-ink/80">
           {comoChegar.paragraphs.map((paragraph) => (
             <p key={paragraph}>{renderTextWithContactLinks(paragraph)}</p>
@@ -36,7 +34,7 @@ export function ComoChegarSection() {
         </div>
         <Link
           href="/como-chegar/transporte"
-          className="mt-4 inline-block text-sm text-ocean-deep underline decoration-ocean/40 underline-offset-2 hover:text-ocean"
+          className="mt-4 inline-block text-sm text-gold-deep underline decoration-gold/40 underline-offset-2 hover:text-gold"
         >
           Ver motoristas, transfer e farmácia
         </Link>

@@ -3,7 +3,7 @@ import { SimplePageLayout } from "@/components/SimplePageLayout";
 import { PendingNote } from "@/components/PendingNote";
 import { cerimonia } from "@/content/wedding";
 
-export const metadata: Metadata = { title: "Cerimônia | Camila & Victor" };
+export const metadata: Metadata = { title: "Cerimônia | Camila e Victor" };
 
 export default function CerimoniaPage() {
   return (

@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Parisienne, Jost } from "next/font/google";
+import { Jost } from "next/font/google";
+import localFont from "next/font/local";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CountdownCorner } from "@/components/Countdown";
 import "./globals.css";
 
-const displaySerif = Cormorant_Garamond({
+// Fontes enviadas pela Camila: Cinzel para os textos, Lile Dahliya Script
+// para o nome dos noivos.
+const displaySerif = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  src: [
+    { path: "../fonts/cinzel-regular.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/cinzel-bold.ttf", weight: "700", style: "normal" },
+    { path: "../fonts/cinzel-black.ttf", weight: "900", style: "normal" },
+  ],
 });
 
-const script = Parisienne({
+const script = localFont({
   variable: "--font-script",
-  subsets: ["latin"],
+  src: "../fonts/lile-dahliya-script.otf",
   weight: "400",
 });
 
@@ -25,15 +30,15 @@ const body = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Camila & Victor | São Miguel dos Milagres",
+  title: "Camila e Victor | São Miguel dos Milagres",
   description:
     "Site do casamento de Camila e Victor, em São Miguel dos Milagres, Alagoas. Três dias de celebração à beira-mar.",
   metadataBase: new URL("https://www.camilaevictoremmilagres.com.br"),
   openGraph: {
-    title: "Camila & Victor",
+    title: "Camila e Victor",
     description:
       "Site do casamento de Camila e Victor, em São Miguel dos Milagres, Alagoas.",
-    siteName: "Camila & Victor",
+    siteName: "Camila e Victor",
     locale: "pt_BR",
     type: "website",
   },

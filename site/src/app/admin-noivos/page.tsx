@@ -47,7 +47,7 @@ export default async function AdminNoivosPage() {
       <div className="mx-auto max-w-3xl">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="font-display text-4xl italic text-ocean-deep">
+            <h1 className="font-display text-4xl text-gold">
               Área dos noivos
             </h1>
             <span
@@ -58,7 +58,7 @@ export default async function AdminNoivosPage() {
           <form action={logout}>
             <button
               type="submit"
-              className="text-sm text-ocean-deep underline decoration-ocean/40 underline-offset-4 hover:text-ocean"
+              className="text-sm text-gold-deep underline decoration-gold/40 underline-offset-4 hover:text-gold"
             >
               Sair
             </button>
@@ -76,11 +76,11 @@ export default async function AdminNoivosPage() {
               href={link.href}
               className="rounded-2xl border border-sand-dark/60 bg-sand/30 px-6 py-6 transition-colors hover:bg-sand/50"
             >
-              <p className="font-display text-2xl italic text-ocean-deep">
+              <p className="font-display text-2xl text-gold">
                 {link.title}
               </p>
               <p className="mt-2 text-sm text-ink/70">{link.description}</p>
-              <p className="mt-4 text-xs uppercase tracking-wide text-ocean-deep">
+              <p className="mt-4 text-xs uppercase tracking-wide text-gold-deep">
                 {link.stat}
               </p>
             </Link>

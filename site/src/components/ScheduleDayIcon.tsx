@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 /**
- * Aquarelas decorativas exibidas ao lado do título de cada dia na Programação.
+ * Aquarelas decorativas exibidas acima do título de cada dia na Programação.
  */
 const icons = {
   1: { src: "/images/welcome-drinks.png", width: 190, height: 190 },
@@ -19,7 +19,7 @@ export function ScheduleDayIcon({ day }: { day: 1 | 2 | 3 }) {
       width={config.width}
       height={config.height}
       unoptimized
-      className="h-10 w-auto shrink-0"
+      className="h-20 w-auto"
     />
   );
 }

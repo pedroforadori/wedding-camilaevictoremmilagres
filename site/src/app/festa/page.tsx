@@ -3,7 +3,7 @@ import { SimplePageLayout } from "@/components/SimplePageLayout";
 import { PendingNote } from "@/components/PendingNote";
 import { festa } from "@/content/wedding";
 
-export const metadata: Metadata = { title: "Festa | Camila & Victor" };
+export const metadata: Metadata = { title: "Festa | Camila e Victor" };
 
 export default function FestaPage() {
   return (

@@ -14,10 +14,10 @@ export function Schedule() {
           title="Programação"
         />
 
-        <p className="mx-auto mt-6 max-w-lg text-center text-ink/80">
+        {/* <p className="mx-auto mt-6 max-w-lg text-center text-ink/80">
           Serão três dias de celebração, cada um pensado com carinho para ser
           especial e inesquecível.
-        </p>
+        </p> */}
 
         <div className="mt-12 space-y-8">
           {schedule.map((day) => (

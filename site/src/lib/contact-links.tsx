@@ -1,5 +1,5 @@
 const contactLinkClass =
-  "text-ocean-deep underline decoration-ocean/40 underline-offset-2 hover:text-ocean";
+  "text-gold-deep underline decoration-gold/40 underline-offset-2 hover:text-gold";
 
 export function renderPhone(phone: string) {
   const segments = phone.split("/").map((part) => part.trim());

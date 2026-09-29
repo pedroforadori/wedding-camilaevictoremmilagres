@@ -4,7 +4,7 @@ import { comoChegar } from "@/content/wedding";
 import { renderPhone } from "@/lib/contact-links";
 
 export const metadata: Metadata = {
-  title: "Motoristas, Transfer e Farmácia | Camila & Victor",
+  title: "Motoristas, Transfer e Farmácia | Camila e Victor",
 };
 
 export default function TransporteFarmaciaPage() {
@@ -13,12 +13,12 @@ export default function TransporteFarmaciaPage() {
       <div className="mx-auto max-w-2xl">
         <Link
           href="/#como-chegar"
-          className="text-sm text-ocean-deep underline underline-offset-4"
+          className="text-sm text-gold-deep underline underline-offset-4"
         >
           ← Voltar para Como Chegar
         </Link>
 
-        <h1 className="mt-6 font-display text-3xl italic text-ocean-deep">
+        <h1 className="mt-6 font-display text-3xl text-gold">
           Motoristas, Transfer e Farmácia
         </h1>
         <span
@@ -29,7 +29,7 @@ export default function TransporteFarmaciaPage() {
         <div className="mt-10 grid gap-8 text-left sm:grid-cols-2">
           {comoChegar.transferSections.map((transferSection) => (
             <div key={transferSection.title}>
-              <h2 className="font-display text-lg italic text-ocean-deep">
+              <h2 className="font-display text-lg text-gold">
                 {transferSection.title}
               </h2>
               <ul className="mt-3 space-y-1.5 text-sm text-ink/70">
@@ -50,7 +50,7 @@ export default function TransporteFarmaciaPage() {
         </div>
 
         <div className="mt-10 text-left text-sm text-ink/70">
-          <h2 className="font-display text-lg italic text-ocean-deep">
+          <h2 className="font-display text-lg text-gold">
             Farmácia
           </h2>
           <p className="mt-3 flex justify-between gap-4">

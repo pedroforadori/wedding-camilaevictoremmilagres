@@ -5,7 +5,7 @@
 // ainda não têm material (fotos, textos, listas) — ver a issue referenciada.
 
 export const couple = {
-  names: "Camila & Victor",
+  names: "Camila e Victor",
   initials: "CV",
 };
 
@@ -68,7 +68,8 @@ export const schedule: ScheduleDay[] = [
     title: "Day Off",
     description: [
       "Fiquem à vontade para conhecer Milagres (ver nossas dicas)!",
-      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada* (horário a definir) e depois passaremos o dia na Casa Orla Villas — amaremos compartilhar esse dia com vocês!",
+      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada* (horário a definir) que nos leva até as piscinas naturais quando a maré está baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
+      "No nosso retorno, passaremos o dia na Casa Orla Villas e amaremos compartilhar esse dia com vocês!",
       "*Passeio opcional e pago individualmente pelos convidados que desejarem participar.",
     ],
   },
@@ -170,10 +171,10 @@ export type DicaSection = {
 export const dicas = {
   title: "Dicas",
   intro:
-    "Separamos algumas opções para ajudar vocês, nossos queridos convidados, a se prepararem para o grande dia.",
+    "Separamos algumas opções que indicamos para ajudar vocês, nossos queridos convidados, a se prepararem para o grande dia.",
   guideTitle: "Guia São Miguel dos Milagres",
   warning:
-    "Atenção: não há Uber em Milagres. Recomendamos aluguel de carro ou agendamento de todos os transfers com antecedência.",
+    "Atenção: não há Uber em Milagres. Recomendamos o aluguel de carro ou o agendamento dos transfers com antecedência.",
   sections: [
     {
       key: "hospedagem",
@@ -488,12 +489,9 @@ export const dicas = {
 // e fazem mais sentido aqui, junto do resto da logística de chegada.
 export const comoChegar = {
   title: "Como Chegar",
-  intro:
-    "Tudo que vocês precisam saber para chegar até São Miguel dos Milagres.",
   paragraphs: [
     "O aeroporto mais próximo é o de Maceió, o Zumbi dos Palmares. Distância até Milagres: 100 km (aproximadamente), o trajeto leva em torno de 1h30.",
     "Também é possível ir pelo aeroporto de Recife, o Gilberto Freyre. Distância até Milagres: 200 km (aproximadamente), o trajeto leva em média 3h.",
-    "Importante mencionar que Milagres não possui Uber/táxi, é possível alugar carro no próprio aeroporto ou contratar um serviço de transfer.",
     "A agência do casamento é a Florea Destination (@florea_destination), que está à disposição dos convidados para auxiliar com logística e hospedagem — contato: (11) 99759-2121.",
   ],
   transferSections: [
@@ -534,10 +532,18 @@ export const padrinhos = {
 };
 
 export const presentes = {
-  title: "Lista de casamento virtual",
-  intro: "Aqui vocês poderão encontrar nossa lista de presentes. Obrigado pelos mimos!",
-  status: "em-breve" as const,
-  note: "A lista de presentes ainda não foi configurada pelos noivos.",
+  title: "Presentes",
+  intro:
+    "A sua presença é o maior presente que podemos receber, mas caso queira nos presentear, preparamos uma lista de presentes com carinho!",
+  listLabel: "Lista dos Noivos",
+  // URL externa da lista de presentes — vazio até os noivos enviarem.
+  listUrl: "",
+  listNote: "O link da lista de presentes ainda não foi enviado pelos noivos.",
+  qrIntro:
+    "Segue abaixo o QR Code da nossa conta bancária, caso também prefiram nos presentear diretamente.",
+  // Caminho em /public (ex.: "/images/qrcode-pix.png") — vazio até os noivos enviarem.
+  qrCodeSrc: "",
+  qrNote: "O QR Code da conta ainda não foi enviado pelos noivos.",
   issueUrl:
     "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/13",
 };
@@ -555,26 +561,22 @@ export const fornecedores = {
 // Opções literais do briefing (set/2026) — nomes coloquiais usados só no RSVP,
 // diferentes dos títulos formais em `schedule` (ex.: "Welcome Drinks"/"Day Off").
 export const rsvp = {
-  title: "Confirmação de presença",
-  intro: "Faça parte da nossa história de amor, confirme sua presença.",
+  title: "R.S.V.P.",
   eventOptions: ["Welcome Party", "Jangaday", "Casamento"],
   declineOption: "Não poderei comparecer",
 };
 
 export const guestbook = {
-  title: "Deixe sua mensagem de carinho para nós",
-  intro:
-    "Palavras são carinhos doados. Obrigado por nos dar o seu carinho. Iremos lembrar para sempre deste momento tão esperado.",
+  title: "Mensagem aos Noivos",
 };
 
 export type NavLink = { label: string; href: string };
 
 // Nav replicada do site de referência (estudiofestiv.wixsite.com/website-19):
 // menu fixo com âncoras que rolam até as seções da página única (Início,
-// Programação, R.S.V.P., Dicas, Como Chegar, Presentes, Mensagens). As
-// páginas que a referência não tem (Cerimônia, Festa, Chá Bar, Padrinhos,
-// Galeria, Fornecedores — issue #5 e o restante da arquitetura multi-página
-// anterior) ficam num item "Mais" separado, como páginas de verdade.
+// Programação, R.S.V.P., Dicas, Como Chegar, Presentes, Mensagens), mais a
+// Galeria como página própria. O antigo item "Mais" (Cerimônia, Festa, Chá
+// Bar, Padrinhos, Fornecedores) saiu do menu a pedido dos noivos (set/2026).
 export const primaryNav: NavLink[] = [
   { label: "Início", href: "/#topo" },
   { label: "Programação", href: "/#programacao" },
@@ -583,13 +585,5 @@ export const primaryNav: NavLink[] = [
   { label: "Como Chegar", href: "/#como-chegar" },
   { label: "Presentes", href: "/#presentes" },
   { label: "Mensagens", href: "/#mensagens" },
-];
-
-export const morePages: NavLink[] = [
-  { label: "Cerimônia", href: "/cerimonia" },
-  { label: "Festa", href: "/festa" },
-  { label: "Chá Bar", href: "/cha-bar" },
-  { label: "Padrinhos", href: "/padrinhos" },
   { label: "Galeria", href: "/galeria" },
-  { label: "Fornecedores", href: "/fornecedores" },
 ];

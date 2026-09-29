@@ -15,8 +15,8 @@ export async function generateMetadata({
   const section = dicas.sections.find((s) => s.key === categoria);
   return {
     title: section
-      ? `${section.title} | Dicas | Camila & Victor`
-      : "Dicas | Camila & Victor",
+      ? `${section.title} | Dicas | Camila e Victor`
+      : "Dicas | Camila e Victor",
   };
 }
 
@@ -32,7 +32,7 @@ export default async function DicaCategoriaPage({
       <div className="mx-auto max-w-2xl">
         <Link
           href="/#dicas"
-          className="text-sm text-ocean-deep underline underline-offset-4"
+          className="text-sm text-gold-deep underline underline-offset-4"
         >
           ← Voltar para Dicas
         </Link>
