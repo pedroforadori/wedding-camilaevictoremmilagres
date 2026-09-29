@@ -92,10 +92,29 @@ export const schedule: ScheduleDay[] = [
 // (set/2026, `public/images/traje-dia{1,3}.png`, recortadas sem fundo). O dia 2 (Day Off) não tem
 // traje sugerido, então não leva ilustração.
 
-// Issue #5 — galeria de fotos do casal, aguardando seleção deles.
+// Issue #5 — galeria de fotos do casal. Fotos ficam em
+// `public/images/galeria/`; enquanto `photos` estiver vazio a página mostra
+// placeholders. Ensaio do pedido enviado pelos noivos em set/2026.
 export const gallery = {
-  status: "em-breve" as const,
   note: "Em breve, uma seleção de fotos de Camila e Victor.",
+  photos: [
+    { src: "/images/galeria/casal-01.jpg", width: 1066, height: 1600, alt: "Camila e Victor abraçados, com a capela e os coqueiros ao fundo" },
+    { src: "/images/galeria/casal-02.jpg", width: 1066, height: 1600, alt: "Camila e Victor de mãos dadas diante de uma parede de madeira rústica" },
+    { src: "/images/galeria/casal-03.jpg", width: 1066, height: 1600, alt: "Mãos dadas com o anel de noivado em destaque" },
+    { src: "/images/galeria/casal-04.jpg", width: 900, height: 1600, alt: "Camila abraça Victor, sorrindo, na beira da praia" },
+    { src: "/images/galeria/casal-05.jpg", width: 1066, height: 1600, alt: "Victor ajoelhado na areia pedindo Camila em casamento, com a capela ao fundo" },
+    { src: "/images/galeria/casal-06.jpg", width: 1066, height: 1600, alt: "Abraço emocionado logo após o pedido, em preto e branco" },
+    { src: "/images/galeria/casal-07.jpg", width: 1066, height: 1600, alt: "Casal de mãos dadas em silhueta ao pôr do sol, sobre os recifes" },
+    { src: "/images/galeria/casal-08.jpg", width: 1066, height: 1600, alt: "Casal sentado na areia em frente à capela, em preto e branco" },
+    { src: "/images/galeria/casal-09.jpg", width: 1066, height: 1600, alt: "Camila nas costas de Victor, os dois sorrindo na praia" },
+    { src: "/images/galeria/casal-10.jpg", width: 1066, height: 1600, alt: "Detalhe do abraço do casal, em preto e branco" },
+    { src: "/images/galeria/casal-11.jpg", width: 1066, height: 1600, alt: "Casal brincando e fazendo sinal de paz na beira do mar, em preto e branco" },
+    { src: "/images/galeria/casal-12.jpg", width: 1066, height: 1600, alt: "Camila mostra o anel enquanto Victor comemora de braços erguidos" },
+    { src: "/images/galeria/casal-13.jpg", width: 1066, height: 1600, alt: "Beijo na praia com Camila mostrando o anel, em preto e branco" },
+    { src: "/images/galeria/casal-14.jpg", width: 900, height: 1600, alt: "Casal sorrindo na praia, Camila mostrando o anel" },
+    { src: "/images/galeria/casal-15.jpg", width: 900, height: 1600, alt: "Vista aérea do casal se beijando na faixa de areia entre os recifes" },
+    { src: "/images/galeria/casal-16.jpg", width: 1066, height: 1600, alt: "Casal caminhando de mãos dadas pela praia" },
+  ] as { src: string; width: number; height: number; alt: string }[],
   issueUrl:
     "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/5",
 };
