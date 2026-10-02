@@ -21,7 +21,7 @@ export function Footer() {
         </a>
         <p className="mt-4 text-xs text-ink/50">{wedding.domain}</p>
         <a
-          href="https://portfolio-penne.vercel.app/"
+          href="https://www.pennecasamentos.com.br/"
           target="_blank"
           rel="noopener"
           className="text-xs text-ink/50 underline decoration-ink/20 underline-offset-4 hover:text-gold-deep"
