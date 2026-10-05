@@ -36,7 +36,7 @@ export function ComoChegarSection() {
           href="/como-chegar/transporte"
           className="mt-4 inline-block text-sm text-gold-deep underline decoration-gold/40 underline-offset-2 hover:text-gold"
         >
-          Ver motoristas, transfer e farmácia
+          Ver locadoras, motoristas, transfer e farmácia
         </Link>
       </div>
     </section>

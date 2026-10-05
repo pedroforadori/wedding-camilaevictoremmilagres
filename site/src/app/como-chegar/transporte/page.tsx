@@ -51,6 +51,20 @@ export default function TransporteFarmaciaPage() {
 
         <div className="mt-10 text-left text-sm text-ink/70">
           <h2 className="font-display text-lg text-gold">
+            {comoChegar.locadoras.title}
+          </h2>
+          <ul className="mt-3 space-y-1.5">
+            {comoChegar.locadoras.names.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+          <p className="mt-3 font-semibold text-ink/80">
+            {comoChegar.locadoras.note}
+          </p>
+        </div>
+
+        <div className="mt-10 text-left text-sm text-ink/70">
+          <h2 className="font-display text-lg text-gold">
             Farmácia
           </h2>
           <p className="mt-3 flex justify-between gap-4">

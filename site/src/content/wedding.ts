@@ -43,6 +43,7 @@ export type ScheduleDay = {
   venue?: string;
   location?: string;
   // Texto livre (ex.: dia de folga), usado no lugar do bloco de traje.
+  // Trechos entre **asteriscos duplos** são exibidos em negrito.
   description?: string[];
   dressCode?: string;
   dressNotes?: string[];
@@ -68,9 +69,9 @@ export const schedule: ScheduleDay[] = [
     title: "Day Off",
     description: [
       "Fiquem à vontade para conhecer Milagres (ver nossas dicas)!",
-      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada* (horário a definir) que nos leva até as piscinas naturais quando a maré está baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
+      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada **(em horário a ser definido de acordo com a maré)** que nos leva até as piscinas naturais quando a maré está baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
       "No nosso retorno, passaremos o dia na Casa Orla Villas e amaremos compartilhar esse dia com vocês!",
-      "*Passeio opcional e pago individualmente pelos convidados que desejarem participar.",
+      "*Passeio opcional e pago individualmente pelos convidados que desejarem participar – **média R$80,00 por pessoa e o pagamento deverá ser realizado diretamente ao jangadeiro.**",
     ],
   },
   {
@@ -82,6 +83,7 @@ export const schedule: ScheduleDay[] = [
     dressCode: "Social",
     dressNotes: [
       "Mulheres: recomendamos o uso de salto bloco.",
+      "Nesse dia o branco será exclusivamente da noiva, por isso pedimos que evitem tons claros.",
       "Homens: dispensável o uso de gravata e paletó.",
     ],
   },
@@ -203,36 +205,36 @@ export const dicas = {
         "Pousadas e hotéis em São Miguel dos Milagres, com a distância até a Capela dos Milagres / Casa Marceneiro Bisutti.",
       items: [
         { name: "Nannai – antigo Tuju Boutique Hotel", detail: "450 m" },
-        { name: "Pousada Haya", detail: "1 km" },
         { name: "Villa Kamby Milagres", detail: "800 m" },
+        { name: "Pousada Haya", detail: "1 km" },
         { name: "Pousada Garoupa", detail: "1,1 km" },
-        { name: "Sítio Villa da Mata", detail: "1,9 km" },
-        { name: "Riacho dos Milagres", detail: "2,5 km" },
-        { name: "Taboo Milagres", detail: "2,9 km" },
         { name: "Naluum Residence – Casa", detail: "1,2 km" },
-        { name: "Pousada Oribá Chalé Boutique", detail: "2,9 km" },
         { name: "Pousada Quadrado", detail: "1,5 km" },
-        { name: "Natú Boutique Stay – Casa Pantai", detail: "3,4 km" },
         { name: "Casas Naquê", detail: "1,7 km" },
-        { name: "Ocacoar", detail: "3,4 km" },
-        { name: "Pousada Encanto das Águas", detail: "3,5 km" },
+        { name: "Sítio Villa da Mata", detail: "1,9 km" },
         { name: "Vila Chuá", detail: "2 km" },
         { name: "Paru Boutique Hotel", detail: "2,1 km" },
-        { name: "Aqualuna Pousada", detail: "3,9 km" },
+        { name: "Riacho dos Milagres", detail: "2,5 km" },
         { name: "Casa Camará – Casa", detail: "2,8 km" },
+        { name: "Taboo Milagres", detail: "2,9 km" },
+        { name: "Pousada Oribá Chalé Boutique", detail: "2,9 km" },
+        { name: "Natú Boutique Stay – Casa Pantai", detail: "3,4 km" },
+        { name: "Ocacoar", detail: "3,4 km" },
+        { name: "Pousada Encanto das Águas", detail: "3,5 km" },
+        { name: "Aqualuna Pousada", detail: "3,9 km" },
         { name: "Mahré Hotel e SPA", detail: "4,1 km" },
+        { name: "Pousada Mirai", detail: "5,1 km" },
+        { name: "Villas Taturé", detail: "5,7 km" },
         { name: "Pousada Zaya", detail: "5,9 km" },
         { name: "Pousada do Toque", detail: "6,4 km" },
         { name: "Casa Acayu", detail: "6,6 km" },
         { name: "Pousada Wassu", detail: "7 km" },
-        { name: "Pousada Mirai", detail: "5,1 km" },
-        { name: "Villas Taturé", detail: "5,7 km" },
         { name: "Pousada La Vita", detail: "7,1 km" },
         { name: "Sítio Peixe do Mato", detail: "7,1 km" },
         { name: "Nauru", detail: "7,4 km" },
         { name: "Portuá Chalés", detail: "7,7 km" },
-        { name: "Pousada Villa Italiana", detail: "7,9 km" },
         { name: "Pousada Ricoco", detail: "7,8 km" },
+        { name: "Pousada Villa Italiana", detail: "7,9 km" },
         { name: "Villa Pantai Milagres", detail: "8,1 km" },
         { name: "Angá Hotel", detail: "8,3 km" },
         { name: "Aldeia Patacho", detail: "14 km" },
@@ -538,6 +540,12 @@ export const comoChegar = {
       ],
     },
   ],
+  // Locadoras pedidas pelos noivos (out/2026), exibidas logo abaixo dos transfers.
+  locadoras: {
+    title: "Locadoras de carros",
+    names: ["Movida", "Localiza", "Unidas", "Foco"],
+    note: "Consultar disponibilidade previamente.",
+  },
   farmacia: { name: "Farmácia Porto da Rua", phone: "(82) 3295-1413" },
 };
 
@@ -581,8 +589,15 @@ export const fornecedores = {
 // diferentes dos títulos formais em `schedule` (ex.: "Welcome Drinks"/"Day Off").
 export const rsvp = {
   title: "R.S.V.P.",
-  eventOptions: ["Welcome Party", "Jangaday", "Casamento"],
+  eventOptions: ["Welcome Drinks", "Jangaday", "Casamento"],
   declineOption: "Não poderei comparecer",
+  // Contato da assessoria exibido abaixo do formulário (pedido dos noivos, out/2026).
+  assistance: {
+    text: "Em caso de dúvidas sobre qualquer um dos eventos, nossa assessora estará disponível para ajudá-los.",
+    name: "Eden Cerimonial – Eva Ryane",
+    phoneLabel: "+55 82 8892-7552",
+    whatsappUrl: "https://wa.me/558288927552",
+  },
 };
 
 export const guestbook = {

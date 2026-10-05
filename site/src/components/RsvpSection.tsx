@@ -17,6 +17,19 @@ export function RsvpSection() {
         />
 
         <RsvpForm />
+
+        <div className="mt-10 space-y-2 text-sm text-ink/80">
+          <p className="font-semibold text-ink">{rsvp.assistance.text}</p>
+          <p className="font-semibold text-ink">{rsvp.assistance.name}</p>
+          <a
+            href={rsvp.assistance.whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block font-semibold text-gold underline decoration-gold/40 underline-offset-4 hover:text-gold-deep"
+          >
+            {rsvp.assistance.phoneLabel} (WhatsApp)
+          </a>
+        </div>
       </div>
     </section>
   );
