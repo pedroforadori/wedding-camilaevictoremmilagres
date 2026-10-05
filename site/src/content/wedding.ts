@@ -43,7 +43,6 @@ export type ScheduleDay = {
   venue?: string;
   location?: string;
   // Texto livre (ex.: dia de folga), usado no lugar do bloco de traje.
-  // Trechos entre **asteriscos duplos** são exibidos em negrito.
   description?: string[];
   dressCode?: string;
   dressNotes?: string[];
@@ -69,9 +68,9 @@ export const schedule: ScheduleDay[] = [
     title: "Day Off",
     description: [
       "Fiquem à vontade para conhecer Milagres (ver nossas dicas)!",
-      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada **(em horário a ser definido de acordo com a maré)** que nos leva até as piscinas naturais quando a maré está baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
+      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada (em horário a ser definido de acordo com a maré) que nos leva até as piscinas naturais quando a maré está baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
       "No nosso retorno, passaremos o dia na Casa Orla Villas e amaremos compartilhar esse dia com vocês!",
-      "*Passeio opcional e pago individualmente pelos convidados que desejarem participar – **média R$80,00 por pessoa e o pagamento deverá ser realizado diretamente ao jangadeiro.**",
+      "*Passeio opcional e pago individualmente pelos convidados que desejarem participar – média R$80,00 por pessoa e o pagamento deverá ser realizado diretamente ao jangadeiro.",
     ],
   },
   {

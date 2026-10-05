@@ -58,7 +58,7 @@ export default function TransporteFarmaciaPage() {
               <li key={name}>{name}</li>
             ))}
           </ul>
-          <p className="mt-3 font-semibold text-ink/80">
+          <p className="mt-3">
             {comoChegar.locadoras.note}
           </p>
         </div>

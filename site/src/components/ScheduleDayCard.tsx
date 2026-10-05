@@ -5,23 +5,7 @@ import { ScheduleDayIcon } from "@/components/ScheduleDayIcon";
 
 const dicasLinkPattern = /\(ver nossas dicas\)/;
 
-const boldPattern = /\*\*(.+?)\*\*/;
-
 function renderDescriptionParagraph(paragraph: string) {
-  // Split por um grupo de captura: índices ímpares são os trechos em negrito.
-  const parts = paragraph.split(new RegExp(boldPattern, "g"));
-  return parts.map((part, index) =>
-    index % 2 === 1 ? (
-      <strong key={index} className="font-semibold text-ink">
-        {part}
-      </strong>
-    ) : (
-      <span key={index}>{renderDicasLink(part)}</span>
-    ),
-  );
-}
-
-function renderDicasLink(paragraph: string) {
   const match = paragraph.match(dicasLinkPattern);
   if (!match) return paragraph;
 
