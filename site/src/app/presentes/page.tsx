@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DirectPixBlock } from "@/components/DirectPixBlock";
 import { GiftList } from "@/components/GiftList";
+import { availableGifts } from "@/content/giftList";
 import { presentes } from "@/content/wedding";
 import { getTakenQuotas } from "@/lib/giftOrderStore";
 import { getCardMode } from "@/lib/stripe";
@@ -38,7 +39,7 @@ export default async function PresentesPage() {
       </div>
 
       <div className="mx-auto mt-10 max-w-5xl">
-        <GiftList takenQuotas={takenQuotas} cardMode={getCardMode()} />
+        <GiftList gifts={availableGifts(takenQuotas)} cardMode={getCardMode()} />
       </div>
 
       <DirectPixBlock />

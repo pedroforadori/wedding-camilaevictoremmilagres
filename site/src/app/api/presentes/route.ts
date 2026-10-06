@@ -1,4 +1,4 @@
-import { findGift, freeGift } from "@/content/giftList";
+import { findGift } from "@/content/giftList";
 import {
   countTakenQuotas,
   listGiftOrders,
@@ -7,39 +7,9 @@ import {
 } from "@/lib/giftOrderStore";
 import { getCardMode, getStripe } from "@/lib/stripe";
 
-type ResolvedGift = { id: string; title: string; amountCents: number; image?: string };
-
-// O valor nunca vem do client para os presentes da lista — é relido do
-// conteúdo no servidor. Só a cota livre aceita valor, dentro da faixa da
-// planilha (R$ 200 a R$ 2.000).
-function resolveGift(giftId: string, amountCents: unknown): ResolvedGift | string {
-  if (giftId === freeGift.id) {
-    const amount = Number(amountCents);
-    if (
-      !Number.isInteger(amount) ||
-      amount < freeGift.minCents ||
-      amount > freeGift.maxCents
-    ) {
-      return "Escolha um valor entre R$ 200 e R$ 2.000.";
-    }
-    return { id: freeGift.id, title: freeGift.title, amountCents: amount };
-  }
-
-  const gift = findGift(giftId);
-  if (!gift) return "Presente não encontrado.";
-  return {
-    id: gift.id,
-    title: gift.title,
-    amountCents: gift.priceCents,
-    image: gift.image,
-  };
-}
-
-async function hasQuotaLeft(giftId: string): Promise<boolean> {
-  const gift = findGift(giftId);
-  if (!gift) return true;
+async function hasQuotaLeft(giftId: string, quantity: number): Promise<boolean> {
   const taken = countTakenQuotas(await listGiftOrders())[giftId] ?? 0;
-  return taken < gift.quantity;
+  return taken < quantity;
 }
 
 export async function POST(request: Request) {
@@ -55,14 +25,15 @@ export async function POST(request: Request) {
     return Response.json({ error: "Informe seu nome completo." }, { status: 400 });
   }
 
-  const gift = resolveGift(giftId, body?.amountCents);
-  if (typeof gift === "string") {
-    return Response.json({ error: gift }, { status: 400 });
+  // O valor nunca vem do client — é relido do conteúdo no servidor.
+  const gift = findGift(giftId);
+  if (!gift) {
+    return Response.json({ error: "Presente não encontrado." }, { status: 400 });
   }
 
-  if (!(await hasQuotaLeft(gift.id))) {
+  if (!(await hasQuotaLeft(gift.id, gift.quantity))) {
     return Response.json(
-      { error: "Todas as cotas desse presente já foram escolhidas. Que tal outro?" },
+      { error: "Esse presente acabou de ser escolhido por outra pessoa. Que tal outro?" },
       { status: 409 },
     );
   }
@@ -73,7 +44,7 @@ export async function POST(request: Request) {
     giftTitle: gift.title,
     guestName,
     guestMessage: guestMessage || null,
-    amountCents: gift.amountCents,
+    amountCents: gift.priceCents,
     method,
     status: "pendente",
     createdAt: new Date().toISOString(),
@@ -90,7 +61,7 @@ export async function POST(request: Request) {
     if (!stripe) {
       const params = new URLSearchParams({
         presente: gift.title,
-        valor: String(gift.amountCents),
+        valor: String(gift.priceCents),
         nome: guestName,
       });
       return Response.json({ url: `/presentes/checkout-simulado?${params}` });
@@ -105,10 +76,10 @@ export async function POST(request: Request) {
           quantity: 1,
           price_data: {
             currency: "brl",
-            unit_amount: gift.amountCents,
+            unit_amount: gift.priceCents,
             product_data: {
               name: gift.title,
-              images: gift.image ? [`${origin}${gift.image}`] : undefined,
+              images: [`${origin}${gift.image}`],
             },
           },
         },

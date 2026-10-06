@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { gifts } from "@/content/giftList";
+import { carouselGifts } from "@/content/giftList";
 import { presentes } from "@/content/wedding";
 import { getTakenQuotas } from "@/lib/giftOrderStore";
 import { getCardMode } from "@/lib/stripe";
@@ -28,7 +28,7 @@ export async function PresentesSection() {
       </div>
 
       <div className="mx-auto mt-10 max-w-5xl">
-        <GiftCarousel takenQuotas={takenQuotas} cardMode={getCardMode()} />
+        <GiftCarousel gifts={carouselGifts(takenQuotas)} cardMode={getCardMode()} />
       </div>
 
       <div className="mt-8 text-center">
@@ -36,7 +36,7 @@ export async function PresentesSection() {
           href="/presentes"
           className="inline-block rounded-full border border-gold-deep px-8 py-3 text-sm tracking-wide text-gold-deep transition-colors hover:bg-gold-deep hover:text-foam"
         >
-          Ver lista completa ({gifts.length + 1} presentes)
+          Ver lista completa
         </Link>
       </div>
 

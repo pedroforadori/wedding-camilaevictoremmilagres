@@ -42,7 +42,7 @@ export default async function AdminNoivosPresentesPage() {
           ))}
         </div>
         <p className="mt-3 text-xs text-ink/50">
-          Total da lista (sem cota livre): {formatBRL(listTotal)}
+          Total da lista: {formatBRL(listTotal)}
         </p>
 
         <p className="mt-10 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold-deep">

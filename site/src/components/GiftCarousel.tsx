@@ -1,14 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { featuredGiftIds, findGift, type Gift } from "@/content/giftList";
+import type { PublicGift } from "@/content/giftList";
 import type { CardMode } from "@/lib/stripe";
 import { GiftCard } from "./GiftCard";
 import { GiftCheckoutDialog, type CheckoutTarget } from "./GiftCheckoutDialog";
-
-const featuredGifts = featuredGiftIds
-  .map((id) => findGift(id))
-  .filter((gift): gift is Gift => Boolean(gift));
 
 function ArrowButton({
   direction,
@@ -39,12 +35,12 @@ function ArrowButton({
 }
 
 // Uma linha só, com rolagem horizontal (scroll-snap) entre os presentes em
-// destaque — a lista completa fica em /presentes.
+// destaque (ver carouselGifts) — a lista completa fica em /presentes.
 export function GiftCarousel({
-  takenQuotas,
+  gifts,
   cardMode,
 }: {
-  takenQuotas: Record<string, number>;
+  gifts: PublicGift[];
   cardMode: CardMode;
 }) {
   const trackRef = useRef<HTMLUListElement>(null);
@@ -74,16 +70,9 @@ export function GiftCarousel({
           onScroll={handleScroll}
           className="-mx-6 flex flex-1 snap-x snap-mandatory gap-6 overflow-x-auto scroll-px-6 px-6 pb-2 [scrollbar-width:none] sm:mx-0 sm:scroll-px-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
         >
-          {featuredGifts.map((gift) => (
+          {gifts.map((gift) => (
             <li key={gift.id} className="flex w-[80%] shrink-0 snap-start sm:w-[calc((100%-3rem)/3)]">
-              <GiftCard
-                gift={gift}
-                taken={takenQuotas[gift.id] ?? 0}
-                className="w-full"
-                onSelect={() =>
-                  setTarget({ id: gift.id, title: gift.title, amountCents: gift.priceCents, image: gift.image })
-                }
-              />
+              <GiftCard gift={gift} className="w-full" onSelect={() => setTarget(gift)} />
             </li>
           ))}
         </ul>

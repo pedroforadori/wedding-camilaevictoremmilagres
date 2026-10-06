@@ -2,17 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { freeGift } from "@/content/giftList";
+import type { PublicGift } from "@/content/giftList";
 import { formatBRL } from "@/lib/currency";
 import type { CardMode } from "@/lib/stripe";
 
-export type CheckoutTarget = {
-  id: string;
-  title: string;
-  /** null = cota livre, valor escolhido pelo convidado. */
-  amountCents: number | null;
-  image?: string;
-};
+export type CheckoutTarget = PublicGift;
 
 type Method = "pix" | "card";
 
@@ -35,7 +29,6 @@ export function GiftCheckoutDialog({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [guestName, setGuestName] = useState("");
   const [guestMessage, setGuestMessage] = useState("");
-  const [freeAmount, setFreeAmount] = useState("");
   const [loadingMethod, setLoadingMethod] = useState<Method | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -45,17 +38,11 @@ export function GiftCheckoutDialog({
     if (target && !dialog.open) {
       setLoadingMethod(null);
       setErrorMessage("");
-      setFreeAmount("");
       dialog.showModal();
     } else if (!target && dialog.open) {
       dialog.close();
     }
   }, [target]);
-
-  const isFree = target?.amountCents === null;
-  const amountCents = isFree
-    ? Math.round(Number(freeAmount.replace(",", ".")) * 100) || 0
-    : (target?.amountCents ?? 0);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -63,11 +50,6 @@ export function GiftCheckoutDialog({
 
     const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
     const method: Method = submitter?.value === "card" ? "card" : "pix";
-
-    if (isFree && (amountCents < freeGift.minCents || amountCents > freeGift.maxCents)) {
-      setErrorMessage("Escolha um valor entre R$ 200 e R$ 2.000.");
-      return;
-    }
 
     setLoadingMethod(method);
     setErrorMessage("");
@@ -80,7 +62,6 @@ export function GiftCheckoutDialog({
         guestName,
         guestMessage,
         method,
-        amountCents: isFree ? amountCents : undefined,
       }),
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
@@ -105,11 +86,9 @@ export function GiftCheckoutDialog({
       {target && (
         <form onSubmit={handleSubmit} className="texture-paper px-5 pb-6 pt-5 sm:px-7 sm:pb-7">
           <div className="flex items-start gap-4">
-            {target.image && (
-              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
-                <Image src={target.image} alt="" fill sizes="64px" className="object-cover" />
-              </div>
-            )}
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+              <Image src={target.image} alt="" fill sizes="64px" className="object-cover" />
+            </div>
             <div className="min-w-0 flex-1">
               <p className="text-[0.65rem] uppercase tracking-[0.2em] text-gold-deep">
                 Presentear
@@ -117,7 +96,7 @@ export function GiftCheckoutDialog({
               <h3 className="mt-1 font-display text-lg leading-snug text-gold">
                 {target.title}
               </h3>
-              {!isFree && <p className="mt-0.5 text-ink">{formatBRL(amountCents)}</p>}
+              <p className="mt-0.5 text-ink">{formatBRL(target.priceCents)}</p>
             </div>
             <button
               type="button"
@@ -132,27 +111,6 @@ export function GiftCheckoutDialog({
           </div>
 
           <div className="mt-5 space-y-4">
-            {isFree && (
-              <div>
-                <label htmlFor="gift-amount" className="text-sm text-ink/70">
-                  Valor (R$ 200 a R$ 2.000) *
-                </label>
-                <input
-                  id="gift-amount"
-                  type="number"
-                  inputMode="decimal"
-                  min={freeGift.minCents / 100}
-                  max={freeGift.maxCents / 100}
-                  step="0.01"
-                  required
-                  placeholder="500"
-                  value={freeAmount}
-                  onChange={(e) => setFreeAmount(e.target.value)}
-                  className={inputClass}
-                />
-              </div>
-            )}
-
             <div>
               <label htmlFor="gift-guest-name" className="text-sm text-ink/70">
                 Seu nome *
