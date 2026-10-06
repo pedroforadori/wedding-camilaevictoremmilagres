@@ -561,15 +561,17 @@ export const presentes = {
   title: "Presentes",
   intro:
     "A sua presença é o maior presente que podemos receber, mas caso queira nos presentear, preparamos uma lista de presentes com carinho!",
-  listLabel: "Lista dos Noivos",
-  // URL externa da lista de presentes — vazio até os noivos enviarem.
-  listUrl: "",
-  listNote: "O link da lista de presentes ainda não foi enviado pelos noivos.",
   qrIntro:
     "Segue abaixo o QR Code da nossa conta bancária, caso também prefiram nos presentear diretamente.",
-  // Caminho em /public (ex.: "/images/qrcode-pix.png") — vazio até os noivos enviarem.
-  qrCodeSrc: "",
-  qrNote: "O QR Code da conta ainda não foi enviado pelos noivos.",
+  // Chave Pix dos noivos, decodificada do QR Code "Mostrar código QR" enviado
+  // por eles (out/2026). É a chave aleatória (EVP) — o QR do e-mail usava a
+  // chave e-mail, que preferimos não expor no site. Usada para gerar os
+  // códigos Pix com valor de cada presente (lib/pix.ts) e o QR sem valor.
+  pix: {
+    key: "3bea2238-ff59-4385-b99f-be7c4404aeb2",
+    merchantName: "Camila Pupo Palomares",
+    merchantCity: "Sao Paulo",
+  },
   issueUrl:
     "https://github.com/pedroforadori/wedding-camilaevictoremmilagres/issues/13",
 };

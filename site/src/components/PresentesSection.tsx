@@ -1,8 +1,16 @@
-import Image from "next/image";
-import { PendingNote } from "./PendingNote";
+import Link from "next/link";
+import { gifts } from "@/content/giftList";
 import { presentes } from "@/content/wedding";
+import { getTakenQuotas } from "@/lib/giftOrderStore";
+import { getCardMode } from "@/lib/stripe";
+import { DirectPixBlock } from "./DirectPixBlock";
+import { GiftCarousel } from "./GiftCarousel";
 
-export function PresentesSection() {
+// Na home só um carrossel com alguns presentes; a lista completa, com
+// filtros por destino, fica em /presentes.
+export async function PresentesSection() {
+  const takenQuotas = await getTakenQuotas();
+
   return (
     <section
       id="presentes"
@@ -17,34 +25,22 @@ export function PresentesSection() {
           className="mx-auto mt-4 block h-px w-16 bg-sand-dark"
         />
         <p className="mt-8 text-balance text-ink/80">{presentes.intro}</p>
-
-        {presentes.listUrl ? (
-          <a
-            href={presentes.listUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-full bg-gold-deep px-8 py-3 text-sm tracking-wide text-foam transition-opacity hover:opacity-90"
-          >
-            {presentes.listLabel}
-          </a>
-        ) : (
-          <PendingNote note={presentes.listNote} />
-        )}
-
-        <p className="mt-12 text-balance text-ink/80">{presentes.qrIntro}</p>
-
-        {presentes.qrCodeSrc ? (
-          <Image
-            src={presentes.qrCodeSrc}
-            alt="QR Code da conta bancária dos noivos"
-            width={240}
-            height={240}
-            className="mx-auto mt-6 rounded-xl border border-sand-dark bg-white p-3"
-          />
-        ) : (
-          <PendingNote note={presentes.qrNote} />
-        )}
       </div>
+
+      <div className="mx-auto mt-10 max-w-5xl">
+        <GiftCarousel takenQuotas={takenQuotas} cardMode={getCardMode()} />
+      </div>
+
+      <div className="mt-8 text-center">
+        <Link
+          href="/presentes"
+          className="inline-block rounded-full border border-gold-deep px-8 py-3 text-sm tracking-wide text-gold-deep transition-colors hover:bg-gold-deep hover:text-foam"
+        >
+          Ver lista completa ({gifts.length + 1} presentes)
+        </Link>
+      </div>
+
+      <DirectPixBlock />
     </section>
   );
 }

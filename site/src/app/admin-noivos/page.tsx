@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { readJsonLines } from "@/lib/dataStore";
+import { formatBRL } from "@/lib/currency";
+import { listGiftOrders } from "@/lib/giftOrderStore";
 import { listRsvps } from "@/lib/rsvpStore";
 import { getVisitStats } from "@/lib/visitStats";
 import { logout } from "./login/actions";
@@ -20,6 +22,8 @@ export default async function AdminNoivosPage() {
     0,
   );
   const visitStats = await getVisitStats();
+  const paidGifts = (await listGiftOrders()).filter((order) => order.status === "pago");
+  const paidTotal = paidGifts.reduce((sum, order) => sum + order.amountCents, 0);
 
   const links = [
     {
@@ -37,8 +41,8 @@ export default async function AdminNoivosPage() {
     {
       href: "/admin-noivos/presentes",
       title: "Presentes",
-      description: "Presentes recebidos.",
-      stat: "Ainda não configurado",
+      description: "Presentes recebidos, Pix a confirmar e cotas por experiência.",
+      stat: `${paidGifts.length} presentes · ${formatBRL(paidTotal)}`,
     },
   ];
 
