@@ -30,14 +30,24 @@ export async function POST(request: Request) {
     );
   }
 
-  const saved = await saveRsvp({
+  const result = await saveRsvp({
     guests,
     phone,
     events,
     submittedAt: new Date().toISOString(),
   });
 
-  if (!saved) {
+  if (result === "duplicate-phone") {
+    return Response.json(
+      {
+        error:
+          "Este telefone já confirmou presença. Para alterar a confirmação, fale com a nossa assessora.",
+      },
+      { status: 409 },
+    );
+  }
+
+  if (result === "unavailable") {
     return Response.json(
       { error: "Confirmação indisponível." },
       { status: 503 },
