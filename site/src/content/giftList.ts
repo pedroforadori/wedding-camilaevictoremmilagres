@@ -175,11 +175,11 @@ const giftEntries: GiftEntry[] = [
     image: "/images/presentes/voo-de-balao.webp",
   },
   {
-    id: "aluguel-de-carro-aventuras",
-    title: "Aluguel de carro para as aventuras",
+    id: "upgrade-cabine-executiva",
+    title: "Upgrade para cabine executiva",
     priceCents: 1995_00,
     quantity: 2,
-    image: "/images/presentes/aluguel-de-carro-aventuras.webp",
+    image: "/images/presentes/upgrade-cabine-executiva.webp",
   },
   {
     id: "noite-no-lodge",
