@@ -55,7 +55,7 @@ export default async function PresentePixPage({
         height={256}
         className="mx-auto mt-6 h-64 w-64 rounded-xl border border-sand-dark bg-white p-3"
       />
-      <CopyPixButton code={code} />
+      <CopyPixButton code={code} widthClass="w-64" />
       <p className="mt-6 text-xs text-ink/50">
         {order.status === "pago"
           ? "Presente confirmado pelos noivos. Muito obrigado pelo carinho!"

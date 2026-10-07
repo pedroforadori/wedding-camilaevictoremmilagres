@@ -18,7 +18,7 @@ export async function DirectPixBlock() {
         height={240}
         className="mx-auto mt-6 h-60 w-60 rounded-xl border border-sand-dark bg-white p-3"
       />
-      <CopyPixButton code={code} />
+      <CopyPixButton code={code} widthClass="w-60" />
     </div>
   );
 }
