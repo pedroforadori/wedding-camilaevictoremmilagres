@@ -26,7 +26,7 @@ export function Footer() {
           rel="noopener"
           className="text-xs text-ink/50 underline decoration-ink/20 underline-offset-4 hover:text-gold-deep"
         >
-          Desenvolvido por Penne · Faça o site do seu casamento conosco
+          Desenvolvido por Penne
         </a>
         <VisitCounter />
       </div>
