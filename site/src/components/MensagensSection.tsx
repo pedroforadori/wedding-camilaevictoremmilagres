@@ -1,10 +1,9 @@
 import { GuestbookForm } from "./GuestbookForm";
 import { guestbook } from "@/content/wedding";
-import { listGuestbookEntries } from "@/lib/guestbookStore";
 
-export async function MensagensSection() {
-  const entries = (await listGuestbookEntries()).reverse();
-
+// Só o formulário: as mensagens ficam visíveis apenas para os noivos, em
+// /admin-noivos/mensagens (pedido dos noivos, out/2026).
+export function MensagensSection() {
   return (
     <section
       id="mensagens"
@@ -21,22 +20,6 @@ export async function MensagensSection() {
         <div className="mt-10 rounded-2xl border border-sand-dark/60 bg-sand/30 px-6 py-8 sm:px-10">
           <GuestbookForm />
         </div>
-
-        {entries.length > 0 && (
-          <div className="mt-12 space-y-6 text-left">
-            {entries.map((entry, index) => (
-              <div
-                key={`${entry.submittedAt}-${index}`}
-                className="rounded-xl border border-sand-dark/60 bg-foam px-6 py-5"
-              >
-                <p className="text-ink/80">{entry.message}</p>
-                <p className="mt-3 text-xs uppercase tracking-wide text-gold-deep">
-                  {entry.name}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );

@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
 
 const inputClass =
   "mt-1 w-full rounded-lg border border-sand-dark/60 bg-foam px-4 py-3 text-ink outline-none focus:border-gold";
 
 export function GuestbookForm() {
-  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   );
@@ -34,7 +32,6 @@ export function GuestbookForm() {
     if (res.ok) {
       setStatus("success");
       form.reset();
-      router.refresh();
     } else {
       const body = await res.json().catch(() => null);
       setErrorMessage(body?.error ?? "Não foi possível enviar. Tente novamente.");
