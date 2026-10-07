@@ -42,10 +42,14 @@ export type ScheduleDay = {
   time?: string;
   venue?: string;
   location?: string;
-  // Texto livre (ex.: dia de folga), usado no lugar do bloco de traje.
+  venueLabel?: string;
+  price?: string;
+  // Texto livre (ex.: dia de folga), exibido antes de horário/local.
   description?: string[];
   dressCode?: string;
   dressNotes?: string[];
+  // Frase exibida logo abaixo da aquarela do traje sugerido.
+  illustrationNote?: string;
 };
 
 // Programação definitiva enviada pelos noivos (briefing de set/2026).
@@ -66,12 +70,18 @@ export const schedule: ScheduleDay[] = [
     day: 2,
     date: "10.10.2027",
     title: "Day Off",
+    // Texto revisado pelos noivos (SITE_v4, out/2026).
     description: [
       "Fiquem à vontade para conhecer Milagres (ver nossas dicas)!",
-      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada (em horário a ser definido de acordo com a maré) que nos leva até as piscinas naturais quando a maré está baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
+      "Caso queiram passar o dia com os noivos, faremos um passeio de jangada* que nos levará até as piscinas naturais durante o período de maré baixa — perfeito para mergulhar, ver peixes e passar mais tempo juntos celebrando!",
+      "Contaremos com música, bebidas e muita animação em “alto mar”.",
       "No nosso retorno, passaremos o dia na Casa Orla Villas e amaremos compartilhar esse dia com vocês!",
-      "*Passeio opcional e pago individualmente pelos convidados que desejarem participar – média R$80,00 por pessoa e o pagamento deverá ser realizado diretamente ao jangadeiro.",
+      "*Passeio opcional e pago individualmente pelos convidados que desejarem participar.",
     ],
+    time: "Manhã (a ser confirmado de acordo com a maré)",
+    venueLabel: "Saída",
+    venue: "Orla Villas",
+    price: "R$ 80,00 por pessoa (deverá ser pago diretamente ao jangadeiro no dia do passeio).",
   },
   {
     day: 3,
@@ -82,9 +92,10 @@ export const schedule: ScheduleDay[] = [
     dressCode: "Social",
     dressNotes: [
       "Mulheres: recomendamos o uso de salto bloco.",
-      "Nesse dia o branco será exclusivamente da noiva, por isso pedimos que evitem tons claros.",
       "Homens: dispensável o uso de gravata e paletó.",
     ],
+    illustrationNote:
+      "Neste dia o branco será exclusivamente da noiva, por isso pedimos que evitem tons claros.",
   },
 ];
 
@@ -276,12 +287,6 @@ export const dicas = {
           ],
         },
         {
-          name: "Make Up Kamyla",
-          contacts: [
-            { phone: "(82) 99930-6542", instagram: "@makeuokamyla" },
-          ],
-        },
-        {
           name: "Studio Camilla Barros",
           contacts: [
             { phone: "(82) 99322-1450", instagram: "@studiocamillabarros" },
@@ -304,11 +309,11 @@ export const dicas = {
           ],
         },
         {
-          name: "Glow B Salão",
+          name: "Concept Glow",
           detail:
             "Fornecedor de Milagres — não precisa agendar com tanta antecedência. Tem serviços de massagem, drenagem, produção de mulheres, homens, crianças, etc.",
           contacts: [
-            { phone: "(82) 99416-9097", instagram: "@glowbservices" },
+            { phone: "(82) 99416-9097", instagram: "@conceptglow_" },
           ],
         },
       ],
@@ -618,7 +623,7 @@ export const primaryNav: NavLink[] = [
   { label: "R.S.V.P.", href: "/#rsvp" },
   { label: "Dicas", href: "/#dicas" },
   { label: "Como Chegar", href: "/#como-chegar" },
-  { label: "Presentes", href: "/#presentes" },
+  { label: "Presentes", href: "/presentes" },
   { label: "Mensagens", href: "/#mensagens" },
   { label: "Galeria", href: "/galeria" },
 ];

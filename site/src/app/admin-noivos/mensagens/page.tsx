@@ -1,17 +1,10 @@
-import { readJsonLines } from "@/lib/dataStore";
+import { listGuestbookEntries } from "@/lib/guestbookStore";
 import { AdminSubpageHeader } from "../AdminSubpageHeader";
 
 export const dynamic = "force-dynamic";
 
-type GuestbookEntry = {
-  name: string;
-  message: string;
-  email: string | null;
-  submittedAt: string;
-};
-
-export default function AdminNoivosMensagensPage() {
-  const messages = readJsonLines<GuestbookEntry>("guestbook.jsonl").reverse();
+export default async function AdminNoivosMensagensPage() {
+  const messages = (await listGuestbookEntries()).reverse();
 
   return (
     <section className="texture-paper px-6 py-24">

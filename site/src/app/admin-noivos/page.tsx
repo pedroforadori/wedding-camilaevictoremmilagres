@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { readJsonLines } from "@/lib/dataStore";
 import { formatBRL } from "@/lib/currency";
 import { listGiftOrders } from "@/lib/giftOrderStore";
+import { listGuestbookEntries } from "@/lib/guestbookStore";
 import { listRsvps } from "@/lib/rsvpStore";
 import { getVisitStats } from "@/lib/visitStats";
 import { logout } from "./login/actions";
@@ -9,11 +9,9 @@ import { VisitsChart } from "./VisitsChart";
 
 export const dynamic = "force-dynamic";
 
-type GuestbookEntry = { submittedAt: string };
-
 export default async function AdminNoivosPage() {
   const rsvps = await listRsvps();
-  const messages = readJsonLines<GuestbookEntry>("guestbook.jsonl");
+  const messages = await listGuestbookEntries();
   const confirmedGuests = rsvps.reduce(
     (total, entry) =>
       entry.events.length > 0 && !entry.events.includes("Não poderei comparecer")

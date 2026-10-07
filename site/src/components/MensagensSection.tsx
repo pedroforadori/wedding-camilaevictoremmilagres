@@ -1,15 +1,9 @@
 import { GuestbookForm } from "./GuestbookForm";
 import { guestbook } from "@/content/wedding";
-import { readJsonLines } from "@/lib/dataStore";
+import { listGuestbookEntries } from "@/lib/guestbookStore";
 
-type GuestbookEntry = {
-  name: string;
-  message: string;
-  submittedAt: string;
-};
-
-export function MensagensSection() {
-  const entries = readJsonLines<GuestbookEntry>("guestbook.jsonl").reverse();
+export async function MensagensSection() {
+  const entries = (await listGuestbookEntries()).reverse();
 
   return (
     <section
@@ -24,7 +18,7 @@ export function MensagensSection() {
           aria-hidden="true"
           className="mx-auto mt-4 block h-px w-16 bg-sand-dark"
         />
-        <div className="mt-10rounded-2xl border border-sand-dark/60 bg-sand/30 px-6 py-8 sm:px-10">
+        <div className="mt-10 rounded-2xl border border-sand-dark/60 bg-sand/30 px-6 py-8 sm:px-10">
           <GuestbookForm />
         </div>
 

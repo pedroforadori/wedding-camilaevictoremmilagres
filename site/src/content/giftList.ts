@@ -8,19 +8,21 @@
 // presente some da lista quando todas as cotas são escolhidas.
 
 // Taxa do Stripe repassada no valor de todos os presentes, inclusive no Pix
-// (decisão dos noivos, out/2026), arredondada para cima em reais inteiros:
-// R$ 200 → R$ 210, R$ 275 → R$ 289.
+// (decisão dos noivos, out/2026), com os centavos exatos — sem arredondar
+// (SITE_v4): R$ 200 → R$ 210,00, R$ 275 → R$ 288,75.
 const STRIPE_FEE_PERCENT = 5;
 
 function withStripeFee(baseCents: number): number {
-  return Math.ceil((baseCents * (100 + STRIPE_FEE_PERCENT)) / 100 / 100) * 100;
+  return Math.round((baseCents * (100 + STRIPE_FEE_PERCENT)) / 100);
 }
 
 type GiftEntry = {
   id: string;
   title: string;
   /** Valor da cota na planilha, em centavos, antes da taxa. */
-  basePriceCents: number;
+  basePriceCents?: number;
+  /** Valor final já com a taxa, quando os noivos enviaram assim (SITE_v4). */
+  priceCents?: number;
   /** Nº de cotas (coluna "Nº de presentes disponíveis") — controle interno, não exibido. */
   quantity: number;
   image: string;
@@ -32,6 +34,13 @@ export type Gift = GiftEntry & {
 };
 
 const giftEntries: GiftEntry[] = [
+  {
+    id: "brinde-chegada-africa-do-sul",
+    title: "Brinde romântico de chegada à África do Sul",
+    priceCents: 168_50,
+    quantity: 5,
+    image: "/images/presentes/brinde-chegada-africa-do-sul.webp",
+  },
   {
     id: "por-do-sol-lions-head",
     title: "Pôr do sol no Lion's Head",
@@ -45,6 +54,13 @@ const giftEntries: GiftEntry[] = [
     basePriceCents: 275_00,
     quantity: 6,
     image: "/images/presentes/ceu-estrelado-safari.webp",
+  },
+  {
+    id: "teleferico-cape-town",
+    title: "Teleférico em Cape Town",
+    priceCents: 346_50,
+    quantity: 5,
+    image: "/images/presentes/teleferico-cape-town.webp",
   },
   {
     id: "cafe-da-manha-na-cama",
@@ -159,6 +175,13 @@ const giftEntries: GiftEntry[] = [
     image: "/images/presentes/voo-de-balao.webp",
   },
   {
+    id: "aluguel-de-carro-aventuras",
+    title: "Aluguel de carro para as aventuras",
+    priceCents: 1995_00,
+    quantity: 2,
+    image: "/images/presentes/aluguel-de-carro-aventuras.webp",
+  },
+  {
     id: "noite-no-lodge",
     title: "Uma noite no lodge de safári (suíte com varanda)",
     basePriceCents: 2000_00,
@@ -172,11 +195,18 @@ const giftEntries: GiftEntry[] = [
     quantity: 2,
     image: "/images/presentes/noite-no-resort.webp",
   },
+  {
+    id: "passeio-barco-privativo",
+    title: "Passeio de barco privativo",
+    priceCents: 3150_00,
+    quantity: 2,
+    image: "/images/presentes/passeio-barco-privativo.webp",
+  },
 ];
 
 export const gifts: Gift[] = giftEntries.map((gift) => ({
   ...gift,
-  priceCents: withStripeFee(gift.basePriceCents),
+  priceCents: gift.priceCents ?? withStripeFee(gift.basePriceCents ?? 0),
 }));
 
 // Seleção exibida primeiro no carrossel da home: uma mistura de destinos e

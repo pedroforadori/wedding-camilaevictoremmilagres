@@ -1,4 +1,4 @@
-import { appendJsonLine } from "@/lib/dataStore";
+import { saveGuestbookEntry } from "@/lib/guestbookStore";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -17,12 +17,16 @@ export async function POST(request: Request) {
     return Response.json({ error: "Mensagem muito longa." }, { status: 400 });
   }
 
-  appendJsonLine("guestbook.jsonl", {
+  const saved = await saveGuestbookEntry({
     name,
     message,
     email: email || null,
     submittedAt: new Date().toISOString(),
   });
+
+  if (!saved) {
+    return Response.json({ error: "Mural indisponível." }, { status: 503 });
+  }
 
   return Response.json({ ok: true });
 }

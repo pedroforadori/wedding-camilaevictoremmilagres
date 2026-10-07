@@ -10,7 +10,7 @@ import { MensagensSection } from "@/components/MensagensSection";
 
 // Página única com seções por âncora (replicando o menu do site de
 // referência — ver `primaryNav` em content/wedding.ts). `mensagens` lê o
-// mural de recados do disco a cada request, então a home inteira precisa
+// mural de recados do Redis a cada request, então a home inteira precisa
 // ser dinâmica.
 export const dynamic = "force-dynamic";
 
