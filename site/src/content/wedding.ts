@@ -206,6 +206,15 @@ export const dicas = {
   guideTitle: "Guia São Miguel dos Milagres",
   warning:
     "Atenção: não há Uber em Milagres. Recomendamos o aluguel de carro ou o agendamento dos transfers com antecedência.",
+  // Quadro abaixo do aviso do Uber (pedido da noiva, out/2026). O trecho em
+  // `highlight` aparece em negrito, como na mensagem dela.
+  transfer: {
+    highlight: "dia do casamento",
+    paragraphs: [
+      "Especialmente para o dia do casamento teremos serviço de transfer saindo dos hotéis/pousadas próximos ao local da cerimônia.",
+      "Horários e demais detalhes serão informados na semana do evento.",
+    ],
+  },
   sections: [
     {
       key: "hospedagem",

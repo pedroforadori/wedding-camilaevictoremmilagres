@@ -27,6 +27,24 @@ export function DicasSection() {
         <p className="mt-4 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold-deep">
           {dicas.warning}
         </p>
+        <div className="mt-4 space-y-1 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold-deep">
+          {dicas.transfer.paragraphs.map((paragraph) => {
+            const [before, after] = paragraph.split(dicas.transfer.highlight);
+            return (
+              <p key={paragraph}>
+                {after === undefined ? (
+                  paragraph
+                ) : (
+                  <>
+                    {before}
+                    <strong className="font-semibold">{dicas.transfer.highlight}</strong>
+                    {after}
+                  </>
+                )}
+              </p>
+            );
+          })}
+        </div>
       </div>
 
       <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 sm:grid-cols-4">
