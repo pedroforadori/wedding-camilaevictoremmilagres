@@ -5,11 +5,13 @@ import {
   saveGiftOrder,
   type GiftOrder,
 } from "@/lib/giftOrderStore";
+import { getGiftQuantities } from "@/lib/giftQuantityStore";
 import { getCardMode, getStripe } from "@/lib/stripe";
 
-async function hasQuotaLeft(giftId: string, quantity: number): Promise<boolean> {
-  const taken = countTakenQuotas(await listGiftOrders())[giftId] ?? 0;
-  return taken < quantity;
+async function hasQuotaLeft(giftId: string): Promise<boolean> {
+  const [orders, quantities] = await Promise.all([listGiftOrders(), getGiftQuantities()]);
+  const taken = countTakenQuotas(orders)[giftId] ?? 0;
+  return taken < (quantities[giftId] ?? 0);
 }
 
 export async function POST(request: Request) {
@@ -31,7 +33,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Presente não encontrado." }, { status: 400 });
   }
 
-  if (!(await hasQuotaLeft(gift.id, gift.quantity))) {
+  if (!(await hasQuotaLeft(gift.id))) {
     return Response.json(
       { error: "Esse presente acabou de ser escolhido por outra pessoa. Que tal outro?" },
       { status: 409 },

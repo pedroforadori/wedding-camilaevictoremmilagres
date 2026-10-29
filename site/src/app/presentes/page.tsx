@@ -5,6 +5,7 @@ import { GiftList } from "@/components/GiftList";
 import { availableGifts } from "@/content/giftList";
 import { presentes } from "@/content/wedding";
 import { getTakenQuotas } from "@/lib/giftOrderStore";
+import { getGiftQuantities } from "@/lib/giftQuantityStore";
 import { getCardMode } from "@/lib/stripe";
 
 // Lista completa de presentes. A home (#presentes) mostra só um carrossel
@@ -17,7 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default async function PresentesPage() {
-  const takenQuotas = await getTakenQuotas();
+  const [takenQuotas, quantities] = await Promise.all([
+    getTakenQuotas(),
+    getGiftQuantities(),
+  ]);
 
   return (
     <section className="texture-paper px-6 py-24">
@@ -39,7 +43,7 @@ export default async function PresentesPage() {
       </div>
 
       <div className="mx-auto mt-10 max-w-5xl">
-        <GiftList gifts={availableGifts(takenQuotas)} cardMode={getCardMode()} />
+        <GiftList gifts={availableGifts(takenQuotas, quantities)} cardMode={getCardMode()} />
       </div>
 
       <DirectPixBlock />

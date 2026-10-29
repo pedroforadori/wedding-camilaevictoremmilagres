@@ -1,20 +1,21 @@
 import { gifts } from "@/content/giftList";
 import { formatBRL } from "@/lib/currency";
 import { countTakenQuotas, listGiftOrders } from "@/lib/giftOrderStore";
+import { getGiftQuantities } from "@/lib/giftQuantityStore";
 import { AdminSubpageHeader } from "../AdminSubpageHeader";
-import { confirmGiftOrder, removeGiftOrder } from "./actions";
+import { adjustGiftQuantity, confirmGiftOrder, removeGiftOrder } from "./actions";
 import { RemoveOrderButton } from "./RemoveOrderButton";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminNoivosPresentesPage() {
-  const orders = await listGiftOrders();
+  const [orders, quantities] = await Promise.all([listGiftOrders(), getGiftQuantities()]);
   const paid = orders.filter((order) => order.status === "pago");
   const pendingPix = orders.filter(
     (order) => order.status === "pendente" && order.method === "pix",
   );
   const paidTotal = paid.reduce((sum, order) => sum + order.amountCents, 0);
-  const listTotal = gifts.reduce((sum, gift) => sum + gift.priceCents * gift.quantity, 0);
+  const listTotal = gifts.reduce((sum, gift) => sum + gift.priceCents * quantities[gift.id], 0);
   const takenQuotas = countTakenQuotas(paid);
   // Pedidos de cartão que nunca voltaram pagos são checkouts abandonados.
   const visibleOrders = orders.filter(
@@ -104,16 +105,54 @@ export default async function AdminNoivosPresentesPage() {
 
         <h2 className="mt-14 font-display text-2xl text-gold">Cotas por presente</h2>
         <ul className="mt-4 divide-y divide-sand-dark/30 text-sm">
-          {gifts.map((gift) => (
-            <li key={gift.id} className="flex items-baseline justify-between gap-4 py-2">
-              <span className="text-ink/80">{gift.title}</span>
-              <span className="shrink-0 text-ink/50">
-                {takenQuotas[gift.id] ?? 0}/{gift.quantity}
-              </span>
-            </li>
-          ))}
+          {gifts.map((gift) => {
+            const taken = takenQuotas[gift.id] ?? 0;
+            const quantity = quantities[gift.id];
+            return (
+              <li key={gift.id} className="flex items-center justify-between gap-4 py-2">
+                <span className="text-ink/80">
+                  {gift.title}
+                  {quantity !== gift.quantity && (
+                    <span className="ml-2 text-xs text-ink/40">(padrão: {gift.quantity})</span>
+                  )}
+                </span>
+                <span className="flex shrink-0 items-center gap-2 text-ink/50">
+                  <QuantityButton giftId={gift.id} delta={-1} disabled={quantity <= taken} />
+                  <span className="min-w-12 text-center tabular-nums">
+                    {taken}/{quantity}
+                  </span>
+                  <QuantityButton giftId={gift.id} delta={1} />
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
+  );
+}
+
+function QuantityButton({
+  giftId,
+  delta,
+  disabled = false,
+}: {
+  giftId: string;
+  delta: 1 | -1;
+  disabled?: boolean;
+}) {
+  return (
+    <form action={adjustGiftQuantity}>
+      <input type="hidden" name="id" value={giftId} />
+      <input type="hidden" name="delta" value={delta} />
+      <button
+        type="submit"
+        disabled={disabled}
+        aria-label={delta === 1 ? "Adicionar uma cota" : "Remover uma cota"}
+        className="flex h-7 w-7 items-center justify-center rounded-full border border-gold-deep text-gold-deep hover:bg-gold-deep hover:text-foam disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-gold-deep"
+      >
+        {delta === 1 ? "+" : "−"}
+      </button>
+    </form>
   );
 }

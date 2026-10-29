@@ -2,6 +2,7 @@ import Link from "next/link";
 import { carouselGifts } from "@/content/giftList";
 import { presentes } from "@/content/wedding";
 import { getTakenQuotas } from "@/lib/giftOrderStore";
+import { getGiftQuantities } from "@/lib/giftQuantityStore";
 import { getCardMode } from "@/lib/stripe";
 import { DirectPixBlock } from "./DirectPixBlock";
 import { GiftCarousel } from "./GiftCarousel";
@@ -9,7 +10,10 @@ import { GiftCarousel } from "./GiftCarousel";
 // Na home só um carrossel com alguns presentes; a lista completa, com
 // filtros por destino, fica em /presentes.
 export async function PresentesSection() {
-  const takenQuotas = await getTakenQuotas();
+  const [takenQuotas, quantities] = await Promise.all([
+    getTakenQuotas(),
+    getGiftQuantities(),
+  ]);
 
   return (
     <section
@@ -28,7 +32,7 @@ export async function PresentesSection() {
       </div>
 
       <div className="mx-auto mt-10 max-w-5xl">
-        <GiftCarousel gifts={carouselGifts(takenQuotas)} cardMode={getCardMode()} />
+        <GiftCarousel gifts={carouselGifts(takenQuotas, quantities)} cardMode={getCardMode()} />
       </div>
 
       <div className="mt-8 text-center">

@@ -23,7 +23,10 @@ type GiftEntry = {
   basePriceCents?: number;
   /** Valor final já com a taxa, quando os noivos enviaram assim (SITE_v4). */
   priceCents?: number;
-  /** Nº de cotas (coluna "Nº de presentes disponíveis") — controle interno, não exibido. */
+  /**
+   * Nº de cotas (coluna "Nº de presentes disponíveis") — controle interno, não
+   * exibido. É o valor inicial: os noivos ajustam pelo admin (lib/giftQuantityStore).
+   */
   quantity: number;
   image: string;
 };
@@ -234,17 +237,23 @@ function toPublic(gift: Gift): PublicGift {
 }
 
 /** Presentes que ainda têm cota — os esgotados somem da lista. */
-export function availableGifts(takenQuotas: Record<string, number>): PublicGift[] {
+export function availableGifts(
+  takenQuotas: Record<string, number>,
+  quantities: Record<string, number>,
+): PublicGift[] {
   return gifts
-    .filter((gift) => (takenQuotas[gift.id] ?? 0) < gift.quantity)
+    .filter((gift) => (takenQuotas[gift.id] ?? 0) < (quantities[gift.id] ?? gift.quantity))
     .map(toPublic);
 }
 
 const CAROUSEL_SIZE = 8;
 
 /** Destaques disponíveis primeiro, completados com outros presentes se algum esgotar. */
-export function carouselGifts(takenQuotas: Record<string, number>): PublicGift[] {
-  const available = availableGifts(takenQuotas);
+export function carouselGifts(
+  takenQuotas: Record<string, number>,
+  quantities: Record<string, number>,
+): PublicGift[] {
+  const available = availableGifts(takenQuotas, quantities);
   const featured = available.filter((gift) => featuredGiftIds.includes(gift.id));
   const others = available.filter((gift) => !featuredGiftIds.includes(gift.id));
   return [...featured, ...others].slice(0, CAROUSEL_SIZE);
