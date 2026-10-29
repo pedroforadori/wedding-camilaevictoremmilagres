@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { gifts } from "@/content/giftList";
 import { formatBRL } from "@/lib/currency";
 import { countTakenQuotas, listGiftOrders } from "@/lib/giftOrderStore";
@@ -16,7 +17,9 @@ export default async function AdminNoivosPresentesPage() {
   );
   const paidTotal = paid.reduce((sum, order) => sum + order.amountCents, 0);
   const listTotal = gifts.reduce((sum, gift) => sum + gift.priceCents * quantities[gift.id], 0);
-  const takenQuotas = countTakenQuotas(paid);
+  const soldQuotas = countTakenQuotas(paid);
+  // Mesma conta do site público: Pix pendente recente também segura a cota.
+  const heldQuotas = countTakenQuotas(orders);
   // Pedidos de cartão que nunca voltaram pagos são checkouts abandonados.
   const visibleOrders = orders.filter(
     (order) => order.method === "pix" || order.status === "pago",
@@ -104,29 +107,53 @@ export default async function AdminNoivosPresentesPage() {
         </div>
 
         <h2 className="mt-14 font-display text-2xl text-gold">Cotas por presente</h2>
-        <ul className="mt-4 divide-y divide-sand-dark/30 text-sm">
+        <p className="mt-2 text-sm text-ink/60">
+          Quando as disponíveis chegam a 0 o presente sai do site; use + para
+          liberar mais cotas.
+        </p>
+        <div className="mt-4 grid grid-cols-[1fr_auto_auto] items-center gap-x-6 text-sm">
+          <span className="pb-2 text-xs uppercase tracking-wide text-gold-deep">Presente</span>
+          <span className="pb-2 text-center text-xs uppercase tracking-wide text-gold-deep">
+            Vendidas
+          </span>
+          <span className="pb-2 text-center text-xs uppercase tracking-wide text-gold-deep">
+            Disponíveis
+          </span>
           {gifts.map((gift) => {
-            const taken = takenQuotas[gift.id] ?? 0;
-            const quantity = quantities[gift.id];
+            const sold = soldQuotas[gift.id] ?? 0;
+            const pending = (heldQuotas[gift.id] ?? 0) - sold;
+            const available = Math.max(quantities[gift.id] - (heldQuotas[gift.id] ?? 0), 0);
             return (
-              <li key={gift.id} className="flex items-center justify-between gap-4 py-2">
-                <span className="text-ink/80">
-                  {gift.title}
-                  {quantity !== gift.quantity && (
-                    <span className="ml-2 text-xs text-ink/40">(padrão: {gift.quantity})</span>
+              <Fragment key={gift.id}>
+                <span className="border-t border-sand-dark/30 py-3 text-ink/80">{gift.title}</span>
+                <span className="border-t border-sand-dark/30 py-3 text-center leading-tight">
+                  <span className="block text-base tabular-nums text-ink/80">{sold}</span>
+                  {pending > 0 && (
+                    <span className="block text-[11px] text-terracotta">+{pending} Pix aguardando</span>
                   )}
                 </span>
-                <span className="flex shrink-0 items-center gap-2 text-ink/50">
-                  <QuantityButton giftId={gift.id} delta={-1} disabled={quantity <= taken} />
-                  <span className="min-w-12 text-center tabular-nums">
-                    {taken}/{quantity}
+                <span className="flex items-center justify-center gap-2 border-t border-sand-dark/30 py-3">
+                  <QuantityButton giftId={gift.id} delta={-1} disabled={available === 0} />
+                  <span className="min-w-14 text-center leading-tight">
+                    <span
+                      className={`block text-base tabular-nums ${
+                        available === 0 ? "text-terracotta" : "text-ink/80"
+                      }`}
+                    >
+                      {available}
+                    </span>
+                    {available === 0 && (
+                      <span className="block text-[10px] uppercase tracking-wide text-terracotta">
+                        esgotado
+                      </span>
+                    )}
                   </span>
                   <QuantityButton giftId={gift.id} delta={1} />
                 </span>
-              </li>
+              </Fragment>
             );
           })}
-        </ul>
+        </div>
       </div>
     </section>
   );
